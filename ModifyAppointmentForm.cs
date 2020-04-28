@@ -1,10 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
-using MySql.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,14 +11,14 @@ using System.Windows.Forms;
 
 namespace SchedulingApplication
 {
-    public partial class Dashboard : Form
+    public partial class ModifyAppointmentForm : Form
     {
-        public Dashboard()
+        public ModifyAppointmentForm()
         {
             InitializeComponent();
 
-            dgvFormatter(DashboardCustDGV);
-            dgvFormatter(DashboardApptDGV);
+            dgvFormatter(MACustDGV);
+            dgvFormatter(MAApptsDGV);
 
 
 
@@ -36,7 +34,7 @@ namespace SchedulingApplication
 
                 if (dt.Rows.Count > 0)
                 {
-                    DashboardApptDGV.DataSource = dt;
+                    MAApptsDGV.DataSource = dt;
                 }
                 cn.Close();
 
@@ -53,50 +51,36 @@ namespace SchedulingApplication
 
                 if (ct.Rows.Count > 0)
                 {
-                    DashboardCustDGV.DataSource = ct;
+                    MACustDGV.DataSource = ct;
                 }
                 con.Close();
 
             }
         }
 
-
         public static void dgvFormatter(DataGridView dgvStyle)
-        {//DGV PROPERTIES
-            dgvStyle.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvStyle.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvStyle.MultiSelect = false;
+        {
+            dgvStyle.RowHeadersVisible = false;
             dgvStyle.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Yellow;
             dgvStyle.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
+            dgvStyle.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvStyle.AllowUserToAddRows = false;
             dgvStyle.ReadOnly = true;
-
         }
-        private void DBCustLabel_Click(object sender, EventArgs e)
+
+        private void MAApptIDLabel_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void DashboardApptDGV_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-
-            //Inventory.CurrPartIndex = e.RowIndex;
-            //Inventory.CurrentPart = Inventory.AllParts[Inventory.CurrPartIndex];
-        }
-
-        private void DashboardApptDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            ///////xx///////
-        }
-
-        private void DashboardCustDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void MAApptsDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void DBExitButton_Click(object sender, EventArgs e)
+        private void ModifyAppointmentForm_Load(object sender, EventArgs e)
         {
-            this.Close();
+
         }
     }
 }
