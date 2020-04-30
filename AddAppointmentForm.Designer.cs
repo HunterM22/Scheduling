@@ -227,6 +227,7 @@
             this.Name = "AddAppointmentForm";
             this.ShowIcon = false;
             this.Text = "Add Appointment";
+            this.Load += new System.EventHandler(this.AddAppointmentForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.AACustDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AAApptsDGV)).EndInit();
             this.ResumeLayout(false);

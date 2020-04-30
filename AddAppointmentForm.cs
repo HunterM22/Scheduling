@@ -22,5 +22,10 @@ namespace SchedulingApplication
         {
 
         }
+
+        private void AddAppointmentForm_Load(object sender, EventArgs e)
+        {
+            //////xx placeholder  xxxx
+        }
     }
 }
