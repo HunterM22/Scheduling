@@ -43,7 +43,7 @@
             this.DBAddApptButton = new System.Windows.Forms.Button();
             this.DBModifyApptButton = new System.Windows.Forms.Button();
             this.DBDeleteApptButton = new System.Windows.Forms.Button();
-            this.DBDeleteAppt = new System.Windows.Forms.Button();
+            this.DBDeleteCust = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DashboardApptDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DashboardCustDGV)).BeginInit();
             this.SuspendLayout();
@@ -64,6 +64,7 @@
             this.DBEAddCustButton.TabIndex = 1;
             this.DBEAddCustButton.Text = "Add";
             this.DBEAddCustButton.UseVisualStyleBackColor = true;
+            this.DBEAddCustButton.Click += new System.EventHandler(this.DBEAddCustButton_Click);
             // 
             // DBViewReportsButton
             // 
@@ -75,6 +76,7 @@
             this.DBViewReportsButton.TabIndex = 3;
             this.DBViewReportsButton.Text = "Reports";
             this.DBViewReportsButton.UseVisualStyleBackColor = true;
+            this.DBViewReportsButton.Click += new System.EventHandler(this.DBViewReportsButton_Click);
             // 
             // DBExitButton
             // 
@@ -113,6 +115,7 @@
             this.DashMonthRadioButton.TabStop = true;
             this.DashMonthRadioButton.Text = "Month";
             this.DashMonthRadioButton.UseVisualStyleBackColor = true;
+            this.DashMonthRadioButton.CheckedChanged += new System.EventHandler(this.DashMonthRadioButton_CheckedChanged);
             // 
             // DashWeekRadioButton
             // 
@@ -124,6 +127,7 @@
             this.DashWeekRadioButton.TabStop = true;
             this.DashWeekRadioButton.Text = "Week";
             this.DashWeekRadioButton.UseVisualStyleBackColor = true;
+            this.DashWeekRadioButton.CheckedChanged += new System.EventHandler(this.DashWeekRadioButton_CheckedChanged);
             // 
             // DashViewCalendarLabel
             // 
@@ -180,6 +184,7 @@
             this.DBModifyCustButton.TabIndex = 12;
             this.DBModifyCustButton.Text = "Modify";
             this.DBModifyCustButton.UseVisualStyleBackColor = true;
+            this.DBModifyCustButton.Click += new System.EventHandler(this.DBModifyCustButton_Click);
             // 
             // DBAddApptButton
             // 
@@ -191,6 +196,7 @@
             this.DBAddApptButton.TabIndex = 13;
             this.DBAddApptButton.Text = "Add";
             this.DBAddApptButton.UseVisualStyleBackColor = true;
+            this.DBAddApptButton.Click += new System.EventHandler(this.DBAddApptButton_Click);
             // 
             // DBModifyApptButton
             // 
@@ -202,6 +208,7 @@
             this.DBModifyApptButton.TabIndex = 14;
             this.DBModifyApptButton.Text = "Modify";
             this.DBModifyApptButton.UseVisualStyleBackColor = true;
+            this.DBModifyApptButton.Click += new System.EventHandler(this.DBModifyApptButton_Click);
             // 
             // DBDeleteApptButton
             // 
@@ -213,17 +220,19 @@
             this.DBDeleteApptButton.TabIndex = 15;
             this.DBDeleteApptButton.Text = "Delete";
             this.DBDeleteApptButton.UseVisualStyleBackColor = true;
+            this.DBDeleteApptButton.Click += new System.EventHandler(this.DBDeleteApptButton_Click);
             // 
-            // DBDeleteAppt
+            // DBDeleteCust
             // 
-            this.DBDeleteAppt.FlatAppearance.BorderSize = 2;
-            this.DBDeleteAppt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DBDeleteAppt.Location = new System.Drawing.Point(864, 556);
-            this.DBDeleteAppt.Name = "DBDeleteAppt";
-            this.DBDeleteAppt.Size = new System.Drawing.Size(167, 38);
-            this.DBDeleteAppt.TabIndex = 16;
-            this.DBDeleteAppt.Text = "Delete";
-            this.DBDeleteAppt.UseVisualStyleBackColor = true;
+            this.DBDeleteCust.FlatAppearance.BorderSize = 2;
+            this.DBDeleteCust.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DBDeleteCust.Location = new System.Drawing.Point(864, 556);
+            this.DBDeleteCust.Name = "DBDeleteCust";
+            this.DBDeleteCust.Size = new System.Drawing.Size(167, 38);
+            this.DBDeleteCust.TabIndex = 16;
+            this.DBDeleteCust.Text = "Delete";
+            this.DBDeleteCust.UseVisualStyleBackColor = true;
+            this.DBDeleteCust.Click += new System.EventHandler(this.DBDeleteCust_Click);
             // 
             // Dashboard
             // 
@@ -231,7 +240,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
             this.ClientSize = new System.Drawing.Size(1066, 675);
-            this.Controls.Add(this.DBDeleteAppt);
+            this.Controls.Add(this.DBDeleteCust);
             this.Controls.Add(this.DBDeleteApptButton);
             this.Controls.Add(this.DBModifyApptButton);
             this.Controls.Add(this.DBAddApptButton);
@@ -274,6 +283,6 @@
         private System.Windows.Forms.Button DBAddApptButton;
         private System.Windows.Forms.Button DBModifyApptButton;
         private System.Windows.Forms.Button DBDeleteApptButton;
-        private System.Windows.Forms.Button DBDeleteAppt;
+        private System.Windows.Forms.Button DBDeleteCust;
     }
 }

@@ -70,6 +70,7 @@
             this.ACCancelButton.TabIndex = 31;
             this.ACCancelButton.Text = "Cancel";
             this.ACCancelButton.UseVisualStyleBackColor = true;
+            this.ACCancelButton.Click += new System.EventHandler(this.ACCancelButton_Click);
             // 
             // ACAddButton
             // 

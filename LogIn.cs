@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 
 namespace SchedulingApplication
@@ -17,46 +17,40 @@ namespace SchedulingApplication
     {
         public LogIn()
         {
-            InitializeComponent();
-
-            //checkLanguage(CultureInfo.CurrentUICulture.LCID);
-            ////English or Spanish (Mexico)
-
-        }
-
-        //private void checkLanguage(int LCID)
-        //{
-        //    if (LCID == 2058)
-        //    {
-        //        this.Text = "Iniciar sesión";
-        //        label1.Text = "Bienvenido, por favor inicie sesión.";
-        //        LogInUsernameLabel.Text = "Nombre de usuario";
-        //        LogInPasswordLabel.Text = "contraseña";
-        //        LogInButton.Text = "Iniciar sesión";
-        //        LogInExitButton.Text = "Salida";
-        //        //error = "El nombre de usuario o contraseña ingresados ​​no es válido.";
-          
-        //    }
-        //}
-
+            InitializeComponent();   
+         }
+                
         private void LogIn_Load(object sender, EventArgs e)
         {
-            
+                                 
         }
+
+        public static System.Globalization.RegionInfo CurrentRegion { get; }
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
-            
+            MySqlConnection mcon = new MySqlConnection(@"Host = 3.227.166.251; Port = 3306; Database = U06oGK; userid = U06oGK;
+            password = 53688825246; SslMode = None; Convert Zero Datetime = True");
+            MySqlDataAdapter adapter;
+            DataTable table = new DataTable();
 
-
-
-            this.Hide();
-            Dashboard DB = new Dashboard();
-            DB.ShowDialog();
-
-
+            adapter = new MySqlDataAdapter("Select * From user where userName = '" + LogInUsernameTextBox.Text + "' and password = '" + LogInPasswordTextBox.Text + "'", mcon);
+            adapter.Fill(table);
+            if (table.Rows.Count <= 0)
+            {
+                MessageBox.Show("Please check your username/password and try again.");
+            }
+            else
+            {
+                this.Hide();
+                Dashboard showDB = new Dashboard();
+                showDB.ShowDialog();
+            }
+            mcon.Close();
         }
 
+
+        
         private void LogInExitButton_Click(object sender, EventArgs e)
         {
             this.Close();

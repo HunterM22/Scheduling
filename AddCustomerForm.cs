@@ -16,5 +16,12 @@ namespace SchedulingApplication
         {
             InitializeComponent();
         }
+
+        private void ACCancelButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Dashboard db = new Dashboard();
+            db.ShowDialog();
+        }
     }
 }

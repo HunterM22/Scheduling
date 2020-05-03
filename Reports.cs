@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace SchedulingApplication
 {
-    public partial class ModifyCustomerForm : Form
+    public partial class Reports : Form
     {
-        public ModifyCustomerForm()
+        public Reports()
         {
             InitializeComponent();
         }
 
-        private void MCCancelButton_Click(object sender, EventArgs e)
+        private void ReportExitButton_Click(object sender, EventArgs e)
         {
             this.Hide();
             Dashboard db = new Dashboard();

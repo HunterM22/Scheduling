@@ -156,6 +156,7 @@
             this.MCCancelButton.TabIndex = 33;
             this.MCCancelButton.Text = "Cancel";
             this.MCCancelButton.UseVisualStyleBackColor = true;
+            this.MCCancelButton.Click += new System.EventHandler(this.MCCancelButton_Click);
             // 
             // MCUpdateButton
             // 
