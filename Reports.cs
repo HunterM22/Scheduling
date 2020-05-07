@@ -23,5 +23,12 @@ namespace SchedulingApplication
             Dashboard db = new Dashboard();
             db.ShowDialog();
         }
+
+        private void ReportActiveCustomerList_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ReportActiveUserList rl = new ReportActiveUserList();
+            rl.ShowDialog();
+        }
     }
 }

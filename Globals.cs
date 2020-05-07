@@ -13,6 +13,14 @@ namespace SchedulingApplication
         public static int CurrCustIndex { get; set; }
         public static int CurrApptIndex { get; set; }
 
+        public static int uIdx { get; set; }
+
+        public static int cIdx { get; set; }
+
+        public static int aIdx { get; set; }
+
+        public static System.Globalization.CultureInfo CurrentUICulture { get; set; }
+
         public static Customer CurrentCust { get; set; }
         public static Appointment CurrentAppt { get; set; }
 

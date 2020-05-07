@@ -22,7 +22,6 @@ namespace SchedulingApplication
             dgvFormatter(DashboardCustDGV);
             dgvFormatter(DashboardApptDGV);
 
-
             //Fill Appointment Table
             DataTable dt = new DataTable();
             string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
@@ -32,7 +31,8 @@ namespace SchedulingApplication
                 MySqlCommand cmd = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 dt.Load(reader);
-
+                //string temp = (dt.Rows[1]["type"]).ToString();//get values from row based on current index
+                
                 if (dt.Rows.Count > 0)
                 {
                     DashboardApptDGV.DataSource = dt;
@@ -150,11 +150,22 @@ namespace SchedulingApplication
 
         private void DBDeleteApptButton_Click(object sender, EventArgs e)
         {
+            DataTable dd = new DataTable();
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            using (MySqlConnection cn = new MySqlConnection(connStr))
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from appointment", cn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                dd.Load(reader);
+
+                cn.Close();
+            }
             try
             {
-                int xyz = DashboardApptDGV.SelectedRows[0].Index;
+                int xyz = (int)dd.Rows[Globals.CurrApptIndex]["appointmentId"];
                 string M2 = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
-                string Query = "delete from appointment where appointmentId= '"+ xyz +"';";
+                string Query = "delete from appointment where appointmentId= '" + xyz + "';";
                 MySqlConnection Conn2 = new MySqlConnection(M2);
                 MySqlCommand Command2 = new MySqlCommand(Query, Conn2);
                 MySqlDataReader MyReader2;
@@ -166,30 +177,26 @@ namespace SchedulingApplication
                 }
                 Conn2.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Appointment could not be deleted", "Error");
             }
 
-            DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
-            using (MySqlConnection con = new MySqlConnection(connStrg))
+            DataTable dt = new DataTable();
+            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            using (MySqlConnection cnl = new MySqlConnection(connSt))
             {
-                con.Open();
-                MySqlCommand cmmd = new MySqlCommand("select customerId, customerName, lastUpdate from customer", con);
-                MySqlDataReader creader = cmmd.ExecuteReader();
-                ct.Load(creader);
-
-                if (ct.Rows.Count > 0)
+                cnl.Open();
+                MySqlCommand cmld = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cnl);
+                MySqlDataReader reader = cmld.ExecuteReader();
+                dt.Load(reader);
+                if (dt.Rows.Count > 0)
                 {
-                    DashboardCustDGV.DataSource = ct;
+                    DashboardApptDGV.DataSource = dt;
                 }
-                con.Close();
+                cnl.Close();
 
             }
-
-
-
         }
 
         private void DBDeleteCust_Click(object sender, EventArgs e)

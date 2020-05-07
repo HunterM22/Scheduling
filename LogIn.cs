@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
 using MySql.Data.MySqlClient;
 
 
@@ -17,15 +17,24 @@ namespace SchedulingApplication
     {
         public LogIn()
         {
-            InitializeComponent();   
-         }
-                
+            InitializeComponent();
+
+
+            if (CultureInfo.CurrentUICulture.LCID == 2058)
+            {
+                label1.Text = "Bienvenido, inicia sesion.";
+                LogInUsernameLabel.Text = "Nombre de usuario";
+                LogInPasswordLabel.Text = "Contrasena";
+                LogInButton.Text = "Iniciar sesion";
+                LogInExitButton.Text = "Salida";
+                //HOW TO TRANSLATE ERROR MESSAGE?? = "Por favor revise sus credenciales.";
+            }
+        }                
+
         private void LogIn_Load(object sender, EventArgs e)
         {
                                  
         }
-
-        public static System.Globalization.RegionInfo CurrentRegion { get; }
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
@@ -55,6 +64,11 @@ namespace SchedulingApplication
         {
             this.Close();
 
+        }
+
+        public void timer1_Tick(object sender, EventArgs e)
+        {
+           
         }
     }
 }

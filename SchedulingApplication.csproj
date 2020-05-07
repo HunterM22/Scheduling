@@ -90,6 +90,12 @@
     <Compile Include="AddCustomerForm.Designer.cs">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportActiveUserList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportActiveUserList.Designer.cs">
+      <DependentUpon>ReportActiveUserList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportActiveUserList.resx">
+      <DependentUpon>ReportActiveUserList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports.resx">
       <DependentUpon>Reports.cs</DependentUpon>
