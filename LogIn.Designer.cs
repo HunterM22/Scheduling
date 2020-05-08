@@ -41,28 +41,28 @@
             // 
             // LogInUsernameLabel
             // 
-            this.LogInUsernameLabel.AutoSize = true;
             this.LogInUsernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.LogInUsernameLabel.Location = new System.Drawing.Point(101, 137);
+            this.LogInUsernameLabel.Location = new System.Drawing.Point(37, 136);
             this.LogInUsernameLabel.Name = "LogInUsernameLabel";
-            this.LogInUsernameLabel.Size = new System.Drawing.Size(102, 25);
+            this.LogInUsernameLabel.Size = new System.Drawing.Size(191, 25);
             this.LogInUsernameLabel.TabIndex = 1;
             this.LogInUsernameLabel.Text = "Username";
+            this.LogInUsernameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // LogInPasswordLabel
             // 
-            this.LogInPasswordLabel.AutoSize = true;
             this.LogInPasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.LogInPasswordLabel.Location = new System.Drawing.Point(101, 180);
+            this.LogInPasswordLabel.Location = new System.Drawing.Point(46, 179);
             this.LogInPasswordLabel.Name = "LogInPasswordLabel";
-            this.LogInPasswordLabel.Size = new System.Drawing.Size(98, 25);
+            this.LogInPasswordLabel.Size = new System.Drawing.Size(182, 25);
             this.LogInPasswordLabel.TabIndex = 2;
             this.LogInPasswordLabel.Text = "Password";
+            this.LogInPasswordLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // LogInUsernameTextBox
             // 
             this.LogInUsernameTextBox.AcceptsTab = true;
-            this.LogInUsernameTextBox.Location = new System.Drawing.Point(224, 139);
+            this.LogInUsernameTextBox.Location = new System.Drawing.Point(234, 139);
             this.LogInUsernameTextBox.Name = "LogInUsernameTextBox";
             this.LogInUsernameTextBox.Size = new System.Drawing.Size(262, 22);
             this.LogInUsernameTextBox.TabIndex = 3;
@@ -70,8 +70,9 @@
             // LogInPasswordTextBox
             // 
             this.LogInPasswordTextBox.AcceptsTab = true;
-            this.LogInPasswordTextBox.Location = new System.Drawing.Point(224, 182);
+            this.LogInPasswordTextBox.Location = new System.Drawing.Point(234, 182);
             this.LogInPasswordTextBox.Name = "LogInPasswordTextBox";
+            this.LogInPasswordTextBox.PasswordChar = '*';
             this.LogInPasswordTextBox.Size = new System.Drawing.Size(262, 22);
             this.LogInPasswordTextBox.TabIndex = 4;
             // 
@@ -79,7 +80,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label1.Location = new System.Drawing.Point(196, 81);
+            this.label1.Location = new System.Drawing.Point(206, 81);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(219, 25);
             this.label1.TabIndex = 5;
@@ -88,7 +89,7 @@
             // LogInButton
             // 
             this.LogInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.LogInButton.Location = new System.Drawing.Point(224, 229);
+            this.LogInButton.Location = new System.Drawing.Point(234, 229);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new System.Drawing.Size(171, 33);
             this.LogInButton.TabIndex = 6;
@@ -99,7 +100,7 @@
             // LogInExitButton
             // 
             this.LogInExitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.LogInExitButton.Location = new System.Drawing.Point(401, 229);
+            this.LogInExitButton.Location = new System.Drawing.Point(411, 229);
             this.LogInExitButton.Name = "LogInExitButton";
             this.LogInExitButton.Size = new System.Drawing.Size(89, 33);
             this.LogInExitButton.TabIndex = 7;

@@ -32,7 +32,7 @@ namespace SchedulingApplication
                 MySqlDataReader reader = cmd.ExecuteReader();
                 dt.Load(reader);
                 //string temp = (dt.Rows[1]["type"]).ToString();//get values from row based on current index
-                
+
                 if (dt.Rows.Count > 0)
                 {
                     DashboardApptDGV.DataSource = dt;
@@ -88,7 +88,7 @@ namespace SchedulingApplication
         private void DashboardCustDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Globals.CurrCustIndex = e.RowIndex;
-            
+
         }
 
         private void DBExitButton_Click(object sender, EventArgs e)
@@ -201,7 +201,52 @@ namespace SchedulingApplication
 
         private void DBDeleteCust_Click(object sender, EventArgs e)
         {
+            DataTable cd = new DataTable();
+            string cnnStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            using (MySqlConnection ccn = new MySqlConnection(cnnStr))
+            {
+                ccn.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from customer", ccn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                cd.Load(reader);
 
+                ccn.Close();
+            }
+            try
+            {
+                int abc = (int)cd.Rows[Globals.CurrCustIndex]["customerId"];
+                string M2 = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+                string Query = "delete from customer where customerId= '" + abc + "';";
+                MySqlConnection Cn2 = new MySqlConnection(M2);
+                MySqlCommand Command2 = new MySqlCommand(Query, Cn2);
+                MySqlDataReader MyReader2;
+                Cn2.Open();
+                MyReader2 = Command2.ExecuteReader();
+                MessageBox.Show("Data Deleted");
+                while (MyReader2.Read())
+                {
+                }
+                Cn2.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Customer could not be deleted", "Error");
+            }
+
+            DataTable ct = new DataTable();
+            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            using (MySqlConnection cnl = new MySqlConnection(connSt))
+            {
+                cnl.Open();
+                MySqlCommand cmld = new MySqlCommand("select customerId, customerName, lastUpdate from customer", cnl);
+                MySqlDataReader reader = cmld.ExecuteReader();
+                ct.Load(reader);
+                if (ct.Rows.Count > 0)
+                {
+                    DashboardCustDGV.DataSource = ct;
+                }
+                cnl.Close();
+            }
         }
 
         private void DBViewReportsButton_Click(object sender, EventArgs e)

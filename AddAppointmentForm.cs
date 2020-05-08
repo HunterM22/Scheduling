@@ -19,6 +19,9 @@ namespace SchedulingApplication
             AATypeCombobox.Items.Add("Scrum");
             AATypeCombobox.Items.Add("Presentation");
 
+            AAStartTimePicker.Format = DateTimePickerFormat.Custom;
+            AAEndTimePicker.CustomFormat = "MM'/'dd'/'yyyy hh':'mm tt";
+
             //Fill customer combo box
             DataTable ct = new DataTable();
             string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
@@ -39,10 +42,7 @@ namespace SchedulingApplication
             }
 
         }
-
-        
-        
-
+           
         private void AddAppointmentForm_Load(object sender, EventArgs e)
         {
            
@@ -57,31 +57,32 @@ namespace SchedulingApplication
 
         private void AASaveButton_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    //con string
-            //    string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
 
-            //    //insert qry 
-            //    string Query = "insert into appointment(customerId,userId,type,start,end,createDate,createdBy, lastUpdate, lastUpdateBy)     " +
-            //        "values('" + Convert.ToInt32(AACustomerComboBox.Text) + "','" + . + "','" + AATypeCombobox.Text + "','" + this.NameTextBox.Text + "','" + this.FnameTextBox.Text + "','" + this.AgeTextBox.Text + "','" + this.SemesterTextBox.Text + "');";
-            //    //connection object and string  
-            //    MySqlConnection con2 = new MySqlConnection(con);
-            //    //command -handle the query and connection object.  
-            //    MySqlCommand comm = new MySqlCommand(Query, con2);
-            //    MySqlDataReader rdr;
-            //    con2.Open();
-            //    rdr = comm.ExecuteReader();
-            //    MessageBox.Show("Data Saved");
-            //    while (rdr.Read())
-            //    {
-            //    }
-            //    con2.Close();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Could not add appointment.", "Error");
-            //}
+            int UID = DBConnect.getCurrentUserId();          
+            try
+            {
+                //con string
+                string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+                //insert qry 
+                string Query = "insert into appointment(customerId,userId,type,start,end,createDate,createdBy)     " +
+                    "values('" + Convert.ToInt32(AACustomerComboBox.Text) + "','" + UID + "','" + AATypeCombobox.Text + "','" + AAStartTimePicker + "','" + AAEndTimePicker.Value.ToString("YYYY-MM-DD hh:mm:ss") + "','" +  DateTime.Now.ToString("YYYY-MM-DD hh:mm:ss") + "','" + UID + "');";
+                //connection object and string  
+                MySqlConnection con2 = new MySqlConnection(con);
+                //command -handle the query and connection object.  
+                MySqlCommand comm = new MySqlCommand(Query, con2);
+                MySqlDataReader rdr;
+                con2.Open();
+                rdr = comm.ExecuteReader();
+                MessageBox.Show("Data Saved");
+                while (rdr.Read())
+                {
+                }
+                con2.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not add appointment.", "Error");
+            }
         }
 
         private void AACustomerComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -92,6 +93,11 @@ namespace SchedulingApplication
         private void AACustomerComboBox_Click(object sender, EventArgs e)
         {
             string C = AACustomerComboBox.Text;
+
+        }
+
+        private void AAStartTimePicker_ValueChanged(object sender, EventArgs e)
+        {
 
         }
     }

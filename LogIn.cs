@@ -19,8 +19,9 @@ namespace SchedulingApplication
         {
             InitializeComponent();
 
+            CultureInfo mx = CultureInfo.CurrentCulture;
 
-            if (CultureInfo.CurrentUICulture.LCID == 2058)
+            if (mx.TwoLetterISOLanguageName == "es")
             {
                 label1.Text = "Bienvenido, inicia sesion.";
                 LogInUsernameLabel.Text = "Nombre de usuario";
@@ -29,15 +30,18 @@ namespace SchedulingApplication
                 LogInExitButton.Text = "Salida";
                 //HOW TO TRANSLATE ERROR MESSAGE?? = "Por favor revise sus credenciales.";
             }
-        }                
+        }
 
+        
         private void LogIn_Load(object sender, EventArgs e)
         {
-                                 
+
         }
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
+            CultureInfo mx = CultureInfo.CurrentCulture;
+
             MySqlConnection mcon = new MySqlConnection(@"Host = 3.227.166.251; Port = 3306; Database = U06oGK; userid = U06oGK;
             password = 53688825246; SslMode = None; Convert Zero Datetime = True");
             MySqlDataAdapter adapter;
@@ -47,7 +51,14 @@ namespace SchedulingApplication
             adapter.Fill(table);
             if (table.Rows.Count <= 0)
             {
-                MessageBox.Show("Please check your username/password and try again.");
+                if (mx.TwoLetterISOLanguageName == "es")
+                {
+                    MessageBox.Show("Verifique su nombre de usuario / contraseña e intente nuevamente.");
+                }
+                else
+                {
+                    MessageBox.Show("Please check your username/password and try again.");
+                }
             }
             else
             {
@@ -59,7 +70,7 @@ namespace SchedulingApplication
         }
 
 
-        
+
         private void LogInExitButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -68,7 +79,7 @@ namespace SchedulingApplication
 
         public void timer1_Tick(object sender, EventArgs e)
         {
-           
+            
         }
     }
 }
