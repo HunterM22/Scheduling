@@ -30,5 +30,12 @@ namespace SchedulingApplication
             ReportActiveUserList rl = new ReportActiveUserList();
             rl.ShowDialog();
         }
+
+        private void ReportNumApptsByType_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ReportApptsByMonth r2 = new ReportApptsByMonth();
+            r2.ShowDialog();
+        }
     }
 }

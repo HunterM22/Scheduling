@@ -57,9 +57,13 @@
             this.AATypeCombobox.Name = "AATypeCombobox";
             this.AATypeCombobox.Size = new System.Drawing.Size(244, 24);
             this.AATypeCombobox.TabIndex = 48;
+            this.AATypeCombobox.SelectedIndexChanged += new System.EventHandler(this.AATypeCombobox_SelectedIndexChanged);
+            this.AATypeCombobox.SelectedValueChanged += new System.EventHandler(this.AATypeCombobox_SelectedValueChanged);
             // 
             // AAEndTimePicker
             // 
+            this.AAEndTimePicker.CustomFormat = "\"MM\'/\'dd\'/\'yyyy hh\':\'mm tt\"";
+            this.AAEndTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.AAEndTimePicker.Location = new System.Drawing.Point(124, 181);
             this.AAEndTimePicker.Name = "AAEndTimePicker";
             this.AAEndTimePicker.Size = new System.Drawing.Size(244, 22);
@@ -87,6 +91,7 @@
             // 
             // AAStartTimePicker
             // 
+            this.AAStartTimePicker.CustomFormat = "\"MM\'/\'dd\'/\'yyyy hh\':\'mm tt\"";
             this.AAStartTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.AAStartTimePicker.Location = new System.Drawing.Point(124, 145);
             this.AAStartTimePicker.Name = "AAStartTimePicker";

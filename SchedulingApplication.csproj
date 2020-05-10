@@ -76,7 +76,6 @@
       <DependentUpon>AddAppointmentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Appointment.cs" />
-    <Compile Include="DBConnect.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Dashboard.cs">
       <SubType>Form</SubType>
@@ -95,6 +94,12 @@
     </Compile>
     <Compile Include="ReportActiveUserList.Designer.cs">
       <DependentUpon>ReportActiveUserList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportApptsByMonth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportApptsByMonth.Designer.cs">
+      <DependentUpon>ReportApptsByMonth.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports.cs">
       <SubType>Form</SubType>
@@ -134,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportActiveUserList.resx">
       <DependentUpon>ReportActiveUserList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportApptsByMonth.resx">
+      <DependentUpon>ReportApptsByMonth.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports.resx">
       <DependentUpon>Reports.cs</DependentUpon>

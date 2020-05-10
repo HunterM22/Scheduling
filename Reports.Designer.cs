@@ -43,6 +43,7 @@
             this.ReportNumApptsByType.TabIndex = 0;
             this.ReportNumApptsByType.Text = "Number of Appointment Types (By Month)";
             this.ReportNumApptsByType.UseVisualStyleBackColor = true;
+            this.ReportNumApptsByType.Click += new System.EventHandler(this.ReportNumApptsByType_Click);
             // 
             // ReportScheduleConsultant
             // 
