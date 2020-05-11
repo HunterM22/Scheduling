@@ -32,21 +32,17 @@ namespace SchedulingApplication
                 MySqlDataReader reader = cmd.ExecuteReader();
                 dt.Load(reader);
 
-                string type = (string)dt.Rows[Globals.CurrApptIndex]["type"]; ////
+                string type = (string)dt.Rows[Globals.CurrApptIndex]["type"]; 
                 DateTime start = (DateTime)dt.Rows[Globals.CurrApptIndex]["start"];
                 DateTime end = (DateTime)dt.Rows[Globals.CurrApptIndex]["end"];
 
-                //MACustomerIDCombo.Text = cusId.ToString();
+                
                 MATypeCombobox.Text = type;
                 MAStartTimePicker.Value = (DateTime)start;
                 MAEndTimePicker.Value = (DateTime)end;
 
             }
 
-            //private void MAApptIDLabel_Click(object sender, EventArgs e)
-            //{
-
-            //}
         }
 
         private void ModifyAppointmentForm_Load(object sender, EventArgs e)
@@ -65,24 +61,28 @@ namespace SchedulingApplication
         {
             try
             {
-                //con string
-                string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
-                MySqlConnection con2 = new MySqlConnection(con);
-                con2.Open();
-                //update qry 
-                string Query = "Update appointment Set type = '" + Globals.ApptTypeCombo.ToString()+"', start = '" + MAStartTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "', end = '" + MAEndTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdate = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy = '" + Globals.UserID + "' WHERE appointmentId = '" + Globals.CurrApptIndex + "';";
-                //command -handle the query and connection object.  
-                MySqlCommand comm = new MySqlCommand(Query, con2);
-                comm.ExecuteNonQuery();
+                string type = MATypeCombobox.GetItemText(MATypeCombobox.SelectedItem);
+                //connection string 
+                string Connection = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+                //query
+                string Query = "Update appointment Set type = '" + type + "', start = '" + MAStartTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "', end = '" + MAEndTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdate = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy = '" + Globals.UserID + "' WHERE appointmentId = '" + Globals.CurrApptIndex + "';";
+                MySqlConnection Conn = new MySqlConnection(Connection);
+                MySqlCommand comm = new MySqlCommand(Query, Conn);
                 MySqlDataReader rdr;
+                Conn.Open();
                 rdr = comm.ExecuteReader();
+                MessageBox.Show("Data Updated");
+                while (rdr.Read())
+                {
+                }
 
-                MessageBox.Show("Data Saved");
+                Conn.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Could not update appointment.", "Error");
             }
+
 
             this.Hide();
             Dashboard db = new Dashboard();
@@ -92,7 +92,6 @@ namespace SchedulingApplication
         private void MATypeCombobox_Click(object sender, EventArgs e)
         {
             Globals.ApptTypeCombo = MATypeCombobox.Text;
-            //Globals.CurrCustIndex = e.RowIndex;
         }
 
     }

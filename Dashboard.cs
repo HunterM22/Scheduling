@@ -22,6 +22,13 @@ namespace SchedulingApplication
             dgvFormatter(DashboardCustDGV);
             dgvFormatter(DashboardApptDGV);
 
+            monthCalendar1.MaxSelectionCount = 1;
+            DateTime currentDate = new DateTime();
+            currentDate = DateTime.Now;
+            monthCalendar1.AddBoldedDate(currentDate);
+
+
+
             //Fill Appointment Table
             DataTable dt = new DataTable();
             string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
@@ -82,7 +89,7 @@ namespace SchedulingApplication
 
         private void DashboardApptDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            /////////////X
+            /////////////
         }
 
         private void DashboardCustDGV_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -112,11 +119,16 @@ namespace SchedulingApplication
 
         private void DashMonthRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-
+            monthCalendar1.MaxSelectionCount = 31;
         }
 
-        private void DashWeekRadioButton_CheckedChanged(object sender, EventArgs e)
+        public void DashWeekRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            monthCalendar1.MaxSelectionCount = 7;
+            monthCalendar1.RemoveAllBoldedDates();
+            DateTime currentDate = new DateTime();
+            currentDate = DateTime.Now;
+           
 
         }
 
@@ -254,6 +266,11 @@ namespace SchedulingApplication
             this.Hide();
             Reports rpts = new Reports();
             rpts.ShowDialog();
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
         }
     }
 }

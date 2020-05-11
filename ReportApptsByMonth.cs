@@ -30,44 +30,46 @@ namespace SchedulingApplication
             DataTable dt = new DataTable();
             adp.Fill(dt);
             dataGridView1.DataSource = dt;
+            cn.Close();
 
-            
-            groupBox1.Text = "Report: Number of each type, by month:\r\n\r\n";
-            string[] Months = new string[] { "February", "March", "April" };
+            //Get Feb appt count
+            string conStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            MySqlConnection con = new MySqlConnection(conStr);
+            con.Open();
+            MySqlCommand cmmd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-02%';",con);
+            MySqlDataAdapter adpt = new MySqlDataAdapter(cmmd);
+            DataTable df = new DataTable();
+            adpt.Fill(df);
 
-            foreach (string month in Months)
-            {
-                groupBox1.Text = groupBox1.Text + month + "\r\n";
-                int February = 0;
-                int March = 0;
-                int April = 0;
-                foreach (DataRow row in dt.Rows)
-                {
-                    if (month == Months[((DateTime)row["start"]).Month])
-                    {
-                        if (row["start"].ToString() == "February")
-                        {
-                            February++;
-                        }
-                        if (row["start"].ToString() == "March")
-                        {
-                            March++;
-                        }
-                        if (row["start"].ToString() == "April")
-                        {
-                            April++;
-                        }
-                    }
-                }
-                groupBox1.Text = groupBox1.Text +
-                    "\tFebruary\t\t" + February + "\r\n" +
-                    "\tMarch\t\t" + March + "\r\n" +
-                    "\tApril\t\t" + April + "\r\n";
-                
+            string febapptcount = df.Rows[0][0].ToString();
+            febTB.Text = febapptcount;
+            con.Close();
 
-            }
+            //Get March appt count
+            string onStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            MySqlConnection on = new MySqlConnection(onStr);
+            on.Open();
+            MySqlCommand mmd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-03%';", on);
+            MySqlDataAdapter apt = new MySqlDataAdapter(mmd);
+            DataTable dm = new DataTable();
+            apt.Fill(dm);
 
+            string marapptcount = dm.Rows[0][0].ToString();
+            MarTB.Text = marapptcount;
+            on.Close();
 
+            //Get Apr appt count
+            string aonStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            MySqlConnection aon = new MySqlConnection(aonStr);
+            aon.Open();
+            MySqlCommand ammd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-04%';", aon);
+            MySqlDataAdapter aapt = new MySqlDataAdapter(ammd);
+            DataTable adm = new DataTable();
+            aapt.Fill(adm);
+
+            string aprapptcount = adm.Rows[0][0].ToString();
+            AprTB.Text = aprapptcount;
+            aon.Close();
 
         }
 
@@ -97,6 +99,16 @@ namespace SchedulingApplication
             this.Hide();
             Reports rform = new Reports();
             rform.ShowDialog();
+        }
+
+        private void MarTB_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void febTB_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

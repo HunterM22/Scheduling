@@ -13,7 +13,7 @@ namespace SchedulingApplication
         public static int CurrCustIndex { get; set; }
         public static int CurrApptIndex { get; set; }
 
-        public static int CustCombo { get; set; }
+        public static string CustCombo { get; set; }
 
         public static int CustComboID { get; set; }
 

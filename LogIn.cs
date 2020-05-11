@@ -28,7 +28,6 @@ namespace SchedulingApplication
                 LogInPasswordLabel.Text = "Contrasena";
                 LogInButton.Text = "Iniciar sesion";
                 LogInExitButton.Text = "Salida";
-                //HOW TO TRANSLATE ERROR MESSAGE?? = "Por favor revise sus credenciales.";
             }
         }
 

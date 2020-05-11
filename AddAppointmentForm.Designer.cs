@@ -129,6 +129,8 @@
             this.AACustomerComboBox.Size = new System.Drawing.Size(244, 24);
             this.AACustomerComboBox.TabIndex = 54;
             this.AACustomerComboBox.SelectedIndexChanged += new System.EventHandler(this.AACustomerComboBox_SelectedIndexChanged);
+            this.AACustomerComboBox.DropDownClosed += new System.EventHandler(this.AACustomerComboBox_DropDownClosed);
+            this.AACustomerComboBox.SelectedValueChanged += new System.EventHandler(this.AACustomerComboBox_SelectedValueChanged);
             this.AACustomerComboBox.Click += new System.EventHandler(this.AACustomerComboBox_Click);
             // 
             // AAcustLabel

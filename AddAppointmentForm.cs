@@ -88,35 +88,14 @@ namespace SchedulingApplication
 
         private void AACustomerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+           
         }
+
+
 
         private void AACustomerComboBox_Click(object sender, EventArgs e)
         {
-            DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
-            using (MySqlConnection con = new MySqlConnection(connStrg))
-            {
-                con.Open();
-                MySqlCommand cmmd = new MySqlCommand("select * from customer", con);
-                MySqlDataReader creader = cmmd.ExecuteReader();
-                ct.Load(creader);
-
-                if (ct.Rows.Count > 0)
-                {
-                    AACustomerComboBox.DataSource = ct;
-                    AACustomerComboBox.DisplayMember = "customerName";
-                }
-
-
-                Globals.CustCombo = AACustomerComboBox.SelectedIndex;
-                string temp = (ct.Rows[Globals.CustCombo]["customerId"]).ToString();
-                Globals.CustComboID = Convert.ToInt32(temp);
-                con.Close();
-
-            }
-
-
+            
         }
 
         private void AAStartTimePicker_ValueChanged(object sender, EventArgs e)
@@ -126,12 +105,43 @@ namespace SchedulingApplication
 
         private void AATypeCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-           //xx//
+
         }
 
         private void AATypeCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
             Globals.ApptTypeCombo = AATypeCombobox.Text;
+        }
+
+        private void AACustomerComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void AACustomerComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            
+            string cmbslct = AACustomerComboBox.GetItemText(AACustomerComboBox.SelectedItem);
+
+            string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            using (MySqlConnection cmn = new MySqlConnection(mconnStrg))
+            {
+                cmn.Open();
+                MySqlCommand mmmd = new MySqlCommand("SELECT customerId from customer where customerName = '"+ cmbslct +"';", cmn);
+                MySqlDataAdapter mapt = new MySqlDataAdapter(mmmd);
+                DataTable mdm = new DataTable();
+                mapt.Fill(mdm);
+
+                if (mdm.Rows.Count > 0)
+                {
+                    int idc = (int)mdm.Rows[0][0];
+                    Globals.CustComboID = idc;
+
+                }
+                cmn.Close();
+                
+            }
+
         }
     }
 }
