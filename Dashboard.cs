@@ -151,7 +151,7 @@ namespace SchedulingApplication
             if (Globals.CurrCustIndex >= 0)
             {
                 this.Hide();
-                ModifyAppointmentForm MA = new ModifyAppointmentForm();
+                ModifyCustomerForm MA = new ModifyCustomerForm();
                 MA.ShowDialog();
             }
             else

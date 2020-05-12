@@ -80,60 +80,63 @@
             // 
             this.FebLabel.AutoSize = true;
             this.FebLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FebLabel.Location = new System.Drawing.Point(94, 356);
+            this.FebLabel.Location = new System.Drawing.Point(75, 358);
             this.FebLabel.Name = "FebLabel";
-            this.FebLabel.Size = new System.Drawing.Size(90, 25);
+            this.FebLabel.Size = new System.Drawing.Size(145, 25);
             this.FebLabel.TabIndex = 6;
-            this.FebLabel.Text = "February";
+            this.FebLabel.Text = "February 2019:";
             // 
             // MarchLabel
             // 
             this.MarchLabel.AutoSize = true;
             this.MarchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MarchLabel.Location = new System.Drawing.Point(117, 429);
+            this.MarchLabel.Location = new System.Drawing.Point(98, 414);
             this.MarchLabel.Name = "MarchLabel";
-            this.MarchLabel.Size = new System.Drawing.Size(67, 25);
+            this.MarchLabel.Size = new System.Drawing.Size(122, 25);
             this.MarchLabel.TabIndex = 7;
-            this.MarchLabel.Text = "March";
+            this.MarchLabel.Text = "March 2019:";
             // 
             // AprilLabel
             // 
             this.AprilLabel.AutoSize = true;
             this.AprilLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AprilLabel.Location = new System.Drawing.Point(133, 506);
+            this.AprilLabel.Location = new System.Drawing.Point(114, 468);
             this.AprilLabel.Name = "AprilLabel";
-            this.AprilLabel.Size = new System.Drawing.Size(51, 25);
+            this.AprilLabel.Size = new System.Drawing.Size(106, 25);
             this.AprilLabel.TabIndex = 8;
-            this.AprilLabel.Text = "April";
+            this.AprilLabel.Text = "April 2019:";
             // 
             // febTB
             // 
             this.febTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.febTB.Location = new System.Drawing.Point(190, 353);
+            this.febTB.Location = new System.Drawing.Point(226, 353);
             this.febTB.Name = "febTB";
             this.febTB.ReadOnly = true;
             this.febTB.Size = new System.Drawing.Size(63, 30);
             this.febTB.TabIndex = 9;
+            this.febTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.febTB.TextChanged += new System.EventHandler(this.febTB_TextChanged);
             // 
             // MarTB
             // 
             this.MarTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MarTB.Location = new System.Drawing.Point(190, 426);
+            this.MarTB.Location = new System.Drawing.Point(226, 409);
             this.MarTB.Name = "MarTB";
             this.MarTB.ReadOnly = true;
             this.MarTB.Size = new System.Drawing.Size(63, 30);
             this.MarTB.TabIndex = 10;
+            this.MarTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.MarTB.TextChanged += new System.EventHandler(this.MarTB_TextChanged);
             // 
             // AprTB
             // 
             this.AprTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AprTB.Location = new System.Drawing.Point(190, 503);
+            this.AprTB.Location = new System.Drawing.Point(226, 463);
             this.AprTB.Name = "AprTB";
             this.AprTB.ReadOnly = true;
             this.AprTB.Size = new System.Drawing.Size(63, 30);
             this.AprTB.TabIndex = 11;
+            this.AprTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // ReportApptsByMonth
             // 

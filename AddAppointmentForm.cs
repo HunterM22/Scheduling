@@ -62,7 +62,7 @@ namespace SchedulingApplication
 
                 //insert qry 
                 string Query = "insert into appointment(customerId,userId,type,start,end,createDate,createdBy)     " +
-                    "values('" + Globals.CustComboID + "','" + Globals.UserID + "','" + Globals.ApptTypeCombo + "','" + AAStartTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "','" + AAEndTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "','" +  DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.UserID + "');";
+                    "values('" + Globals.CustComboID + "','" + Globals.UserID + "','" + Globals.ApptTypeCombo + "','" + AAStartTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "','" + AAEndTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "','" +  DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.CurrUserName + "');";
                 //connection object and string  
                 MySqlConnection con2 = new MySqlConnection(con);
                 //command -handle the query and connection object.  

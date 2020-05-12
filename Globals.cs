@@ -14,10 +14,13 @@ namespace SchedulingApplication
         public static int CurrApptIndex { get; set; }
 
         public static string CustCombo { get; set; }
+        public static int ApptId { get; set; }
 
         public static int CustComboID { get; set; }
 
         public static int UserID = 1;
+
+        public static string CurrUserName = "test";
 
         public static string ApptTypeCombo { get; set; }
 

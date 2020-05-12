@@ -28,37 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.MCCustIDLabel = new System.Windows.Forms.Label();
             this.MCNameLabel = new System.Windows.Forms.Label();
             this.MCAddressLabel = new System.Windows.Forms.Label();
             this.MCCityLabel = new System.Windows.Forms.Label();
             this.MCZipcodeLabel = new System.Windows.Forms.Label();
-            this.MCCustIDTextbox = new System.Windows.Forms.TextBox();
             this.MCNameTextbox = new System.Windows.Forms.TextBox();
             this.MCAddressTextbox = new System.Windows.Forms.TextBox();
-            this.MCCityTextbox = new System.Windows.Forms.TextBox();
             this.MCZipTextbox = new System.Windows.Forms.TextBox();
             this.MCPhoneLabel = new System.Windows.Forms.Label();
             this.MCPhoneButton = new System.Windows.Forms.TextBox();
             this.MCCancelButton = new System.Windows.Forms.Button();
             this.MCUpdateButton = new System.Windows.Forms.Button();
+            this.CityComboBox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.CountryComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // MCCustIDLabel
-            // 
-            this.MCCustIDLabel.AutoSize = true;
-            this.MCCustIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MCCustIDLabel.Location = new System.Drawing.Point(24, 50);
-            this.MCCustIDLabel.Name = "MCCustIDLabel";
-            this.MCCustIDLabel.Size = new System.Drawing.Size(121, 25);
-            this.MCCustIDLabel.TabIndex = 0;
-            this.MCCustIDLabel.Text = "Customer ID";
             // 
             // MCNameLabel
             // 
             this.MCNameLabel.AutoSize = true;
             this.MCNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MCNameLabel.Location = new System.Drawing.Point(24, 99);
+            this.MCNameLabel.Location = new System.Drawing.Point(35, 49);
             this.MCNameLabel.Name = "MCNameLabel";
             this.MCNameLabel.Size = new System.Drawing.Size(64, 25);
             this.MCNameLabel.TabIndex = 1;
@@ -68,7 +58,7 @@
             // 
             this.MCAddressLabel.AutoSize = true;
             this.MCAddressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MCAddressLabel.Location = new System.Drawing.Point(24, 144);
+            this.MCAddressLabel.Location = new System.Drawing.Point(35, 94);
             this.MCAddressLabel.Name = "MCAddressLabel";
             this.MCAddressLabel.Size = new System.Drawing.Size(90, 25);
             this.MCAddressLabel.TabIndex = 2;
@@ -78,7 +68,7 @@
             // 
             this.MCCityLabel.AutoSize = true;
             this.MCCityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MCCityLabel.Location = new System.Drawing.Point(24, 194);
+            this.MCCityLabel.Location = new System.Drawing.Point(35, 144);
             this.MCCityLabel.Name = "MCCityLabel";
             this.MCCityLabel.Size = new System.Drawing.Size(46, 25);
             this.MCCityLabel.TabIndex = 4;
@@ -88,53 +78,38 @@
             // 
             this.MCZipcodeLabel.AutoSize = true;
             this.MCZipcodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MCZipcodeLabel.Location = new System.Drawing.Point(24, 240);
+            this.MCZipcodeLabel.Location = new System.Drawing.Point(35, 195);
             this.MCZipcodeLabel.Name = "MCZipcodeLabel";
             this.MCZipcodeLabel.Size = new System.Drawing.Size(92, 25);
             this.MCZipcodeLabel.TabIndex = 5;
             this.MCZipcodeLabel.Text = "Zip Code";
             // 
-            // MCCustIDTextbox
-            // 
-            this.MCCustIDTextbox.Enabled = false;
-            this.MCCustIDTextbox.Location = new System.Drawing.Point(164, 52);
-            this.MCCustIDTextbox.Name = "MCCustIDTextbox";
-            this.MCCustIDTextbox.Size = new System.Drawing.Size(263, 22);
-            this.MCCustIDTextbox.TabIndex = 6;
-            // 
             // MCNameTextbox
             // 
-            this.MCNameTextbox.Location = new System.Drawing.Point(164, 101);
+            this.MCNameTextbox.Location = new System.Drawing.Point(175, 51);
             this.MCNameTextbox.Name = "MCNameTextbox";
             this.MCNameTextbox.Size = new System.Drawing.Size(263, 22);
             this.MCNameTextbox.TabIndex = 7;
             // 
             // MCAddressTextbox
             // 
-            this.MCAddressTextbox.Location = new System.Drawing.Point(164, 147);
+            this.MCAddressTextbox.Location = new System.Drawing.Point(175, 97);
             this.MCAddressTextbox.Name = "MCAddressTextbox";
             this.MCAddressTextbox.Size = new System.Drawing.Size(263, 22);
             this.MCAddressTextbox.TabIndex = 8;
             // 
-            // MCCityTextbox
-            // 
-            this.MCCityTextbox.Location = new System.Drawing.Point(164, 194);
-            this.MCCityTextbox.Name = "MCCityTextbox";
-            this.MCCityTextbox.Size = new System.Drawing.Size(263, 22);
-            this.MCCityTextbox.TabIndex = 10;
-            // 
             // MCZipTextbox
             // 
-            this.MCZipTextbox.Location = new System.Drawing.Point(164, 243);
+            this.MCZipTextbox.Location = new System.Drawing.Point(175, 195);
             this.MCZipTextbox.Name = "MCZipTextbox";
-            this.MCZipTextbox.Size = new System.Drawing.Size(263, 22);
+            this.MCZipTextbox.Size = new System.Drawing.Size(205, 22);
             this.MCZipTextbox.TabIndex = 11;
             // 
             // MCPhoneLabel
             // 
             this.MCPhoneLabel.AutoSize = true;
             this.MCPhoneLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MCPhoneLabel.Location = new System.Drawing.Point(24, 289);
+            this.MCPhoneLabel.Location = new System.Drawing.Point(35, 294);
             this.MCPhoneLabel.Name = "MCPhoneLabel";
             this.MCPhoneLabel.Size = new System.Drawing.Size(69, 25);
             this.MCPhoneLabel.TabIndex = 15;
@@ -142,7 +117,7 @@
             // 
             // MCPhoneButton
             // 
-            this.MCPhoneButton.Location = new System.Drawing.Point(164, 293);
+            this.MCPhoneButton.Location = new System.Drawing.Point(175, 298);
             this.MCPhoneButton.Name = "MCPhoneButton";
             this.MCPhoneButton.Size = new System.Drawing.Size(263, 22);
             this.MCPhoneButton.TabIndex = 16;
@@ -150,7 +125,7 @@
             // MCCancelButton
             // 
             this.MCCancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MCCancelButton.Location = new System.Drawing.Point(302, 351);
+            this.MCCancelButton.Location = new System.Drawing.Point(313, 356);
             this.MCCancelButton.Name = "MCCancelButton";
             this.MCCancelButton.Size = new System.Drawing.Size(99, 33);
             this.MCCancelButton.TabIndex = 33;
@@ -161,33 +136,61 @@
             // MCUpdateButton
             // 
             this.MCUpdateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MCUpdateButton.Location = new System.Drawing.Point(181, 351);
+            this.MCUpdateButton.Location = new System.Drawing.Point(192, 356);
             this.MCUpdateButton.Name = "MCUpdateButton";
             this.MCUpdateButton.Size = new System.Drawing.Size(99, 33);
             this.MCUpdateButton.TabIndex = 32;
             this.MCUpdateButton.Text = "Update";
             this.MCUpdateButton.UseVisualStyleBackColor = true;
             // 
+            // CityComboBox
+            // 
+            this.CityComboBox.FormattingEnabled = true;
+            this.CityComboBox.Location = new System.Drawing.Point(175, 143);
+            this.CityComboBox.Name = "CityComboBox";
+            this.CityComboBox.Size = new System.Drawing.Size(205, 24);
+            this.CityComboBox.TabIndex = 34;
+            this.CityComboBox.DropDownClosed += new System.EventHandler(this.CityComboBox_DropDownClosed);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(35, 243);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 25);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "Country";
+            // 
+            // CountryComboBox
+            // 
+            this.CountryComboBox.FormattingEnabled = true;
+            this.CountryComboBox.Location = new System.Drawing.Point(175, 243);
+            this.CountryComboBox.Name = "CountryComboBox";
+            this.CountryComboBox.Size = new System.Drawing.Size(205, 24);
+            this.CountryComboBox.TabIndex = 36;
+            this.CountryComboBox.DropDownClosed += new System.EventHandler(this.CountryComboBox_DropDownClosed);
+            // 
             // ModifyCustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
-            this.ClientSize = new System.Drawing.Size(479, 436);
+            this.ClientSize = new System.Drawing.Size(479, 417);
+            this.Controls.Add(this.CountryComboBox);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.CityComboBox);
             this.Controls.Add(this.MCCancelButton);
             this.Controls.Add(this.MCUpdateButton);
             this.Controls.Add(this.MCPhoneButton);
             this.Controls.Add(this.MCPhoneLabel);
             this.Controls.Add(this.MCZipTextbox);
-            this.Controls.Add(this.MCCityTextbox);
             this.Controls.Add(this.MCAddressTextbox);
             this.Controls.Add(this.MCNameTextbox);
-            this.Controls.Add(this.MCCustIDTextbox);
             this.Controls.Add(this.MCZipcodeLabel);
             this.Controls.Add(this.MCCityLabel);
             this.Controls.Add(this.MCAddressLabel);
             this.Controls.Add(this.MCNameLabel);
-            this.Controls.Add(this.MCCustIDLabel);
             this.Name = "ModifyCustomerForm";
             this.ShowIcon = false;
             this.Text = "Modify Customer";
@@ -197,20 +200,19 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label MCCustIDLabel;
         private System.Windows.Forms.Label MCNameLabel;
         private System.Windows.Forms.Label MCAddressLabel;
         private System.Windows.Forms.Label MCCityLabel;
         private System.Windows.Forms.Label MCZipcodeLabel;
-        private System.Windows.Forms.TextBox MCCustIDTextbox;
         private System.Windows.Forms.TextBox MCNameTextbox;
         private System.Windows.Forms.TextBox MCAddressTextbox;
-        private System.Windows.Forms.TextBox MCCityTextbox;
         private System.Windows.Forms.TextBox MCZipTextbox;
         private System.Windows.Forms.Label MCPhoneLabel;
         private System.Windows.Forms.TextBox MCPhoneButton;
         private System.Windows.Forms.Button MCCancelButton;
         private System.Windows.Forms.Button MCUpdateButton;
+        private System.Windows.Forms.ComboBox CityComboBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox CountryComboBox;
     }
 }
