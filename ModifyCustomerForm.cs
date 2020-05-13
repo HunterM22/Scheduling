@@ -36,24 +36,44 @@ namespace SchedulingApplication
 
             }
 
-            //Fill country combo box
-            DataTable cr = new DataTable();
-            string conStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
-            using (MySqlConnection con = new MySqlConnection(conStrg))
+            //Populate fields
+            DataTable dt = new DataTable();
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            using (MySqlConnection cn = new MySqlConnection(connStr))
             {
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from country", con);
-                MySqlDataReader creader = cmd.ExecuteReader();
-                cr.Load(creader);
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                dt.Load(reader);
 
-                if (cr.Rows.Count > 0)
-                {
-                    CountryComboBox.DataSource = cr;
-                    CountryComboBox.DisplayMember = "country";
-                }
-                con.Close();
+                //string name =
+                //string address =
+                //string city =
+                //string zip = 
+                //string phone = 
+
+                //MCNameTextbox.Text = name;
+                //MCAddressTextbox.Text = address;
+                //CityComboBox
+                //MCZipTextbox.Text = zip;
+                //MCPhoneButton.Text = phone;
+
+                //-----------Sample-------------//
+                //string type = (string)dt.Rows[Globals.CurrApptIndex]["type"];
+                //DateTime start = (DateTime)dt.Rows[Globals.CurrApptIndex]["start"];
+                //DateTime end = (DateTime)dt.Rows[Globals.CurrApptIndex]["end"];
+                //Globals.ApptId = (int)dt.Rows[Globals.CurrApptIndex]["appointmentId"];
+
+
+                //MATypeCombobox.Text = type;
+                //MAStartTimePicker.Value = (DateTime)start;
+                //MAEndTimePicker.Value = (DateTime)end;
+
 
             }
+
+
+
         }
 
         private void MCCancelButton_Click(object sender, EventArgs e)
@@ -65,12 +85,31 @@ namespace SchedulingApplication
 
         private void CityComboBox_DropDownClosed(object sender, EventArgs e)
         {
+            string ctyslct = CityComboBox.GetItemText(CityComboBox.SelectedItem);
 
+            string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            using (MySqlConnection cmn = new MySqlConnection(mconnStrg))
+            {
+                cmn.Open();
+                MySqlCommand mmmd = new MySqlCommand("SELECT cityId from city where city = '" + ctyslct + "';", cmn);
+                MySqlDataAdapter mapt = new MySqlDataAdapter(mmmd);
+                DataTable mdm = new DataTable();
+                mapt.Fill(mdm);
+
+                if (mdm.Rows.Count > 0)
+                {
+                    int idc = (int)mdm.Rows[0][0];
+                    Globals.CtyID = idc;
+
+                }
+                cmn.Close();
+
+            }
         }
 
         private void CountryComboBox_DropDownClosed(object sender, EventArgs e)
         {
-
+            ///xxxxx///
         }
     }
 }

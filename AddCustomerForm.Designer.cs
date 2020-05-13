@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ACPhoneButton = new System.Windows.Forms.TextBox();
+            this.ACPhoneTextBox = new System.Windows.Forms.TextBox();
             this.ACPhoneLabel = new System.Windows.Forms.Label();
             this.ACCancelButton = new System.Windows.Forms.Button();
             this.ACAddButton = new System.Windows.Forms.Button();
@@ -40,22 +40,20 @@
             this.ACAddressLabel = new System.Windows.Forms.Label();
             this.ACNameLabel = new System.Windows.Forms.Label();
             this.CityCombobox = new System.Windows.Forms.ComboBox();
-            this.CountryLabel = new System.Windows.Forms.Label();
-            this.CountryComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // ACPhoneButton
+            // ACPhoneTextBox
             // 
-            this.ACPhoneButton.Location = new System.Drawing.Point(172, 294);
-            this.ACPhoneButton.Name = "ACPhoneButton";
-            this.ACPhoneButton.Size = new System.Drawing.Size(263, 22);
-            this.ACPhoneButton.TabIndex = 33;
+            this.ACPhoneTextBox.Location = new System.Drawing.Point(172, 241);
+            this.ACPhoneTextBox.Name = "ACPhoneTextBox";
+            this.ACPhoneTextBox.Size = new System.Drawing.Size(263, 22);
+            this.ACPhoneTextBox.TabIndex = 33;
             // 
             // ACPhoneLabel
             // 
             this.ACPhoneLabel.AutoSize = true;
             this.ACPhoneLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ACPhoneLabel.Location = new System.Drawing.Point(32, 290);
+            this.ACPhoneLabel.Location = new System.Drawing.Point(63, 241);
             this.ACPhoneLabel.Name = "ACPhoneLabel";
             this.ACPhoneLabel.Size = new System.Drawing.Size(69, 25);
             this.ACPhoneLabel.TabIndex = 32;
@@ -64,7 +62,7 @@
             // ACCancelButton
             // 
             this.ACCancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ACCancelButton.Location = new System.Drawing.Point(356, 367);
+            this.ACCancelButton.Location = new System.Drawing.Point(336, 300);
             this.ACCancelButton.Name = "ACCancelButton";
             this.ACCancelButton.Size = new System.Drawing.Size(99, 33);
             this.ACCancelButton.TabIndex = 31;
@@ -75,7 +73,7 @@
             // ACAddButton
             // 
             this.ACAddButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ACAddButton.Location = new System.Drawing.Point(235, 367);
+            this.ACAddButton.Location = new System.Drawing.Point(211, 300);
             this.ACAddButton.Name = "ACAddButton";
             this.ACAddButton.Size = new System.Drawing.Size(99, 33);
             this.ACAddButton.TabIndex = 29;
@@ -108,7 +106,7 @@
             // 
             this.ACZipcodeLabel.AutoSize = true;
             this.ACZipcodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ACZipcodeLabel.Location = new System.Drawing.Point(32, 186);
+            this.ACZipcodeLabel.Location = new System.Drawing.Point(40, 188);
             this.ACZipcodeLabel.Name = "ACZipcodeLabel";
             this.ACZipcodeLabel.Size = new System.Drawing.Size(92, 25);
             this.ACZipcodeLabel.TabIndex = 22;
@@ -118,7 +116,7 @@
             // 
             this.ACCityLabel.AutoSize = true;
             this.ACCityLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ACCityLabel.Location = new System.Drawing.Point(32, 136);
+            this.ACCityLabel.Location = new System.Drawing.Point(86, 135);
             this.ACCityLabel.Name = "ACCityLabel";
             this.ACCityLabel.Size = new System.Drawing.Size(46, 25);
             this.ACCityLabel.TabIndex = 21;
@@ -128,7 +126,7 @@
             // 
             this.ACAddressLabel.AutoSize = true;
             this.ACAddressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ACAddressLabel.Location = new System.Drawing.Point(32, 88);
+            this.ACAddressLabel.Location = new System.Drawing.Point(50, 91);
             this.ACAddressLabel.Name = "ACAddressLabel";
             this.ACAddressLabel.Size = new System.Drawing.Size(90, 25);
             this.ACAddressLabel.TabIndex = 19;
@@ -138,7 +136,7 @@
             // 
             this.ACNameLabel.AutoSize = true;
             this.ACNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ACNameLabel.Location = new System.Drawing.Point(32, 43);
+            this.ACNameLabel.Location = new System.Drawing.Point(68, 45);
             this.ACNameLabel.Name = "ACNameLabel";
             this.ACNameLabel.Size = new System.Drawing.Size(64, 25);
             this.ACNameLabel.TabIndex = 18;
@@ -154,35 +152,14 @@
             this.CityCombobox.SelectedIndexChanged += new System.EventHandler(this.CityCombobox_SelectedIndexChanged);
             this.CityCombobox.DropDownClosed += new System.EventHandler(this.CityCombobox_DropDownClosed);
             // 
-            // CountryLabel
-            // 
-            this.CountryLabel.AutoSize = true;
-            this.CountryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CountryLabel.Location = new System.Drawing.Point(30, 239);
-            this.CountryLabel.Name = "CountryLabel";
-            this.CountryLabel.Size = new System.Drawing.Size(81, 25);
-            this.CountryLabel.TabIndex = 35;
-            this.CountryLabel.Text = "Country";
-            // 
-            // CountryComboBox
-            // 
-            this.CountryComboBox.FormattingEnabled = true;
-            this.CountryComboBox.Location = new System.Drawing.Point(172, 239);
-            this.CountryComboBox.Name = "CountryComboBox";
-            this.CountryComboBox.Size = new System.Drawing.Size(212, 24);
-            this.CountryComboBox.TabIndex = 36;
-            this.CountryComboBox.DropDownClosed += new System.EventHandler(this.CountryComboBox_DropDownClosed);
-            // 
             // AddCustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
-            this.ClientSize = new System.Drawing.Size(483, 422);
-            this.Controls.Add(this.CountryComboBox);
-            this.Controls.Add(this.CountryLabel);
+            this.ClientSize = new System.Drawing.Size(495, 385);
             this.Controls.Add(this.CityCombobox);
-            this.Controls.Add(this.ACPhoneButton);
+            this.Controls.Add(this.ACPhoneTextBox);
             this.Controls.Add(this.ACPhoneLabel);
             this.Controls.Add(this.ACCancelButton);
             this.Controls.Add(this.ACAddButton);
@@ -204,7 +181,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox ACPhoneButton;
+        private System.Windows.Forms.TextBox ACPhoneTextBox;
         private System.Windows.Forms.Label ACPhoneLabel;
         private System.Windows.Forms.Button ACCancelButton;
         private System.Windows.Forms.Button ACAddButton;
@@ -216,7 +193,5 @@
         private System.Windows.Forms.Label ACAddressLabel;
         private System.Windows.Forms.Label ACNameLabel;
         private System.Windows.Forms.ComboBox CityCombobox;
-        private System.Windows.Forms.Label CountryLabel;
-        private System.Windows.Forms.ComboBox CountryComboBox;
     }
 }
