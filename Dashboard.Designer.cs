@@ -174,6 +174,7 @@
             this.DashboardCustDGV.Size = new System.Drawing.Size(632, 143);
             this.DashboardCustDGV.TabIndex = 11;
             this.DashboardCustDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DashboardCustDGV_CellClick);
+            this.DashboardCustDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DashboardCustDGV_CellContentClick);
             // 
             // DBModifyCustButton
             // 

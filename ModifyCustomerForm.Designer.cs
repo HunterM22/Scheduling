@@ -140,6 +140,7 @@
             this.MCUpdateButton.TabIndex = 32;
             this.MCUpdateButton.Text = "Update";
             this.MCUpdateButton.UseVisualStyleBackColor = true;
+            this.MCUpdateButton.Click += new System.EventHandler(this.MCUpdateButton_Click);
             // 
             // CityComboBox
             // 
@@ -149,6 +150,7 @@
             this.CityComboBox.Size = new System.Drawing.Size(205, 24);
             this.CityComboBox.TabIndex = 34;
             this.CityComboBox.DropDownClosed += new System.EventHandler(this.CityComboBox_DropDownClosed);
+            this.CityComboBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CityComboBox_MouseClick);
             // 
             // ModifyCustomerForm
             // 

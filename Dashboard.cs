@@ -95,6 +95,26 @@ namespace SchedulingApplication
         private void DashboardCustDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Globals.CurrCustIndex = e.RowIndex;
+                
+            DataTable ct = new DataTable();
+            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            using (MySqlConnection con = new MySqlConnection(connStrg))
+            {
+                con.Open();
+                MySqlCommand cmmd = new MySqlCommand("select * from customer", con);
+                MySqlDataReader creader = cmmd.ExecuteReader();
+                ct.Load(creader);
+
+                if (ct.Rows.Count > 0)
+                {
+                    int cxid = (int)ct.Rows[Globals.CurrCustIndex]["customerId"];
+                    Globals.CustID = cxid;
+                }
+                con.Close();
+
+            }
+
+
 
         }
 
@@ -269,6 +289,11 @@ namespace SchedulingApplication
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
+        }
+
+        private void DashboardCustDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
