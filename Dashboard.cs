@@ -15,41 +15,38 @@ namespace SchedulingApplication
 {
     public partial class Dashboard : Form
     {
+        DateTime currentDate = new DateTime();
         public Dashboard()
         {
             InitializeComponent();
-
             dgvFormatter(DashboardCustDGV);
             dgvFormatter(DashboardApptDGV);
-
-            monthCalendar1.MaxSelectionCount = 1;
-            DateTime currentDate = new DateTime();
-            currentDate = DateTime.Now;
-            monthCalendar1.AddBoldedDate(currentDate);
-
-
+            Check_Appointment();
 
             //Fill Appointment Table
             DataTable dt = new DataTable();
-            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cn = new MySqlConnection(connStr))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 dt.Load(reader);
-                //string temp = (dt.Rows[1]["type"]).ToString();//get values from row based on current index
-
                 if (dt.Rows.Count > 0)
                 {
                     DashboardApptDGV.DataSource = dt;
+                    for (int idx = 0; idx < dt.Rows.Count; idx++)
+                    {
+                        dt.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dt.Rows[idx]["start"], TimeZoneInfo.Local).ToString();
+                        dt.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dt.Rows[idx]["end"], TimeZoneInfo.Local).ToString();
+                    }   
                 }
                 cn.Close();
 
             }
             //Fill Customer Table
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection con = new MySqlConnection(connStrg))
             {
                 con.Open();
@@ -65,6 +62,26 @@ namespace SchedulingApplication
 
             }
         }
+        public void Check_Appointment()
+        {
+            DateTime Now = DateTime.UtcNow;
+            DateTime NowF = DateTime.UtcNow.AddMinutes(15);
+            DataTable dp = new DataTable();
+            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection can = new MySqlConnection(connSt))
+            {
+                can.Open();
+                MySqlCommand acmd = new MySqlCommand("Select * from appointment where userId = '" + Globals.UserID + "' AND start between '" + Now.ToString("yyyy-MM-dd hh:mm:ss") + "' and '" + NowF.ToString("yyyy-MM-dd hh:mm:ss") + "'", can);
+                MySqlDataReader areader = acmd.ExecuteReader();
+                dp.Load(areader);
+                if (dp.Rows.Count > 0)
+                {
+                    MessageBox.Show("You have an appointment within the next 15 minutes.", "Alert!");
+                }
+                can.Close();
+            }
+        }
+
 
 
         public static void dgvFormatter(DataGridView dgvStyle)
@@ -95,9 +112,9 @@ namespace SchedulingApplication
         private void DashboardCustDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Globals.CurrCustIndex = e.RowIndex;
-                
+
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection con = new MySqlConnection(connStrg))
             {
                 con.Open();
@@ -137,18 +154,113 @@ namespace SchedulingApplication
             custform.ShowDialog();
         }
 
+        private void SelectedDate(object sender, DateRangeEventArgs e)
+        {
+            currentDate = e.Start;
+            if (DashMonthRadioButton.Checked)
+            {
+                handleMonth();
+            }
+            else
+            {
+                if (DashWeekRadioButton.Checked)
+                {
+                    handleWeek();
+                }
+                else
+                {
+                    handleDay();
+                }
+            }
+        }
+
+        private void handleDay()
+        {
+            monthCalendar1.RemoveAllBoldedDates();
+            monthCalendar1.AddBoldedDate(currentDate);
+            monthCalendar1.UpdateBoldedDates();
+            DataTable day = new DataTable();
+            //string dconnStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            //using (MySqlConnection dcn = new MySqlConnection(dconnStr))
+            //{
+            //    dcn.Open();
+            //    MySqlCommand dcmd = new MySqlCommand("SELECT * FROM appointment WHERE start Like '" + currentDate + "';);", dcn);                
+            //    MySqlDataReader dreader = dcmd.ExecuteReader();
+            //    day.Load(dreader);
+            //    if (day.Rows.Count > 0)
+            //    {
+            //        DashboardApptDGV.DataSource = day;
+            //    }
+            //    dcn.Close();
+
+            //}
+
+        }
+        private void handleWeek()
+        {
+            monthCalendar1.RemoveAllBoldedDates();
+            int dow = (int)currentDate.DayOfWeek;
+            string startDate = currentDate.AddDays(-dow).ToString();
+            DateTime tempDate = Convert.ToDateTime(startDate);
+            for (int i = 0; i < 7; i++)
+            {
+                monthCalendar1.AddBoldedDate(tempDate.AddDays(i));
+            }
+            monthCalendar1.UpdateBoldedDates();
+            string endDate = currentDate.AddDays(7 - dow).ToString();
+            
+            //getData("SELECT * FROM myTbl WHERE DT BETWEEN CDATE('" + startDate + "') AND CDATE('" + endDate + "');");
+            //dgv.DataSource = dt;
+        }
+
+        private void handleMonth()
+        {
+           monthCalendar1.RemoveAllBoldedDates();
+            int mo = currentDate.Month;
+            int yr = currentDate.Year;
+            int d = 0;
+            string startDate = mo.ToString() + "/01/" + yr.ToString();
+            DateTime tempDate = Convert.ToDateTime(startDate);
+            switch (mo)
+            {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                    d = 31;
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    d = 30;
+                    break;
+                default:
+                    d = 29;
+                    break;
+            }
+            for (int i = 0; i < d; i++)
+            {
+                monthCalendar1.AddBoldedDate(tempDate.AddDays(i));
+            }
+            monthCalendar1.UpdateBoldedDates();
+            string endDate = mo.ToString() + "/" + d.ToString() + "/" + yr.ToString();
+            //getData("SELECT * FROM myTbl WHERE DT BETWEEN CDATE('" + startDate + "') AND CDATE('" + endDate + "');");
+            //dgv.DataSource = dt;
+        }
+
+
+
         private void DashMonthRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            monthCalendar1.MaxSelectionCount = 31;
+            handleMonth();
         }
 
         public void DashWeekRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            monthCalendar1.MaxSelectionCount = 7;
-            monthCalendar1.RemoveAllBoldedDates();
-            DateTime currentDate = new DateTime();
-            currentDate = DateTime.Now;
-           
+            handleWeek();
 
         }
 
@@ -183,7 +295,7 @@ namespace SchedulingApplication
         private void DBDeleteApptButton_Click(object sender, EventArgs e)
         {
             DataTable dd = new DataTable();
-            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cn = new MySqlConnection(connStr))
             {
                 cn.Open();
@@ -196,7 +308,7 @@ namespace SchedulingApplication
             try
             {
                 int xyz = (int)dd.Rows[Globals.CurrApptIndex]["appointmentId"];
-                string M2 = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+                string M2 = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                 string Query = "delete from appointment where appointmentId= '" + xyz + "';";
                 MySqlConnection Conn2 = new MySqlConnection(M2);
                 MySqlCommand Command2 = new MySqlCommand(Query, Conn2);
@@ -215,7 +327,7 @@ namespace SchedulingApplication
             }
 
             DataTable dt = new DataTable();
-            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cnl = new MySqlConnection(connSt))
             {
                 cnl.Open();
@@ -234,7 +346,7 @@ namespace SchedulingApplication
         private void DBDeleteCust_Click(object sender, EventArgs e)
         {
             DataTable cd = new DataTable();
-            string cnnStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string cnnStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection ccn = new MySqlConnection(cnnStr))
             {
                 ccn.Open();
@@ -247,7 +359,7 @@ namespace SchedulingApplication
             try
             {
                 int abc = (int)cd.Rows[Globals.CurrCustIndex]["customerId"];
-                string M2 = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+                string M2 = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                 string Query = "delete from customer where customerId= '" + abc + "';";
                 MySqlConnection Cn2 = new MySqlConnection(M2);
                 MySqlCommand Command2 = new MySqlCommand(Query, Cn2);
@@ -266,7 +378,7 @@ namespace SchedulingApplication
             }
 
             DataTable ct = new DataTable();
-            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cnl = new MySqlConnection(connSt))
             {
                 cnl.Open();
@@ -284,17 +396,37 @@ namespace SchedulingApplication
         private void DBViewReportsButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Reports rpts = new Reports();
+            ReportApptsByMonth rpts = new ReportApptsByMonth();
             rpts.ShowDialog();
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
-
+            currentDate = e.Start;
         }
 
         private void DashboardCustDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            currentDate = e.Start;
+        }
+
+        private void ActiveUserReport_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ReportActiveUserList rpt = new ReportActiveUserList();
+            rpt.ShowDialog();
+        }
+
+        private void SchedByConsReportButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ReportSchedByCons sched = new ReportSchedByCons();
+            sched.ShowDialog();
 
         }
     }

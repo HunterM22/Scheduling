@@ -23,11 +23,12 @@ namespace SchedulingApplication
         public static string ApptTypeCombo { get; set; }
 
 
-        public static int CtryID { get; set; }
+        public static int SelUser { get; set; }
         public static int CtyID { get; set; }
         public static int AddID { get; set; }
         public static int ApptId { get; set; }
         public static int CustID {get; set;}
+        public static DateTime SelDate { get; set; }
         
 
 

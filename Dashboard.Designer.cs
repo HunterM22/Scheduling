@@ -30,7 +30,7 @@
         {
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.DBEAddCustButton = new System.Windows.Forms.Button();
-            this.DBViewReportsButton = new System.Windows.Forms.Button();
+            this.ApptTypesByMonthButton = new System.Windows.Forms.Button();
             this.DBExitButton = new System.Windows.Forms.Button();
             this.DashboardApptDGV = new System.Windows.Forms.DataGridView();
             this.DashMonthRadioButton = new System.Windows.Forms.RadioButton();
@@ -44,16 +44,21 @@
             this.DBModifyApptButton = new System.Windows.Forms.Button();
             this.DBDeleteApptButton = new System.Windows.Forms.Button();
             this.DBDeleteCust = new System.Windows.Forms.Button();
+            this.SchedByConsReportButton = new System.Windows.Forms.Button();
+            this.ActiveUserReport = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.DashboardApptDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DashboardCustDGV)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(71, 151);
+            this.monthCalendar1.Location = new System.Drawing.Point(53, 110);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 0;
             this.monthCalendar1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateChanged);
+            this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar1_DateSelected);
             // 
             // DBEAddCustButton
             // 
@@ -67,17 +72,17 @@
             this.DBEAddCustButton.UseVisualStyleBackColor = true;
             this.DBEAddCustButton.Click += new System.EventHandler(this.DBEAddCustButton_Click);
             // 
-            // DBViewReportsButton
+            // ApptTypesByMonthButton
             // 
-            this.DBViewReportsButton.FlatAppearance.BorderSize = 2;
-            this.DBViewReportsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DBViewReportsButton.Location = new System.Drawing.Point(87, 421);
-            this.DBViewReportsButton.Name = "DBViewReportsButton";
-            this.DBViewReportsButton.Size = new System.Drawing.Size(230, 55);
-            this.DBViewReportsButton.TabIndex = 3;
-            this.DBViewReportsButton.Text = "Reports";
-            this.DBViewReportsButton.UseVisualStyleBackColor = true;
-            this.DBViewReportsButton.Click += new System.EventHandler(this.DBViewReportsButton_Click);
+            this.ApptTypesByMonthButton.FlatAppearance.BorderSize = 2;
+            this.ApptTypesByMonthButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApptTypesByMonthButton.Location = new System.Drawing.Point(34, 37);
+            this.ApptTypesByMonthButton.Name = "ApptTypesByMonthButton";
+            this.ApptTypesByMonthButton.Size = new System.Drawing.Size(230, 56);
+            this.ApptTypesByMonthButton.TabIndex = 3;
+            this.ApptTypesByMonthButton.Text = "Appointment Types By Month";
+            this.ApptTypesByMonthButton.UseVisualStyleBackColor = true;
+            this.ApptTypesByMonthButton.Click += new System.EventHandler(this.DBViewReportsButton_Click);
             // 
             // DBExitButton
             // 
@@ -109,7 +114,7 @@
             // DashMonthRadioButton
             // 
             this.DashMonthRadioButton.AutoSize = true;
-            this.DashMonthRadioButton.Location = new System.Drawing.Point(127, 95);
+            this.DashMonthRadioButton.Location = new System.Drawing.Point(106, 68);
             this.DashMonthRadioButton.Name = "DashMonthRadioButton";
             this.DashMonthRadioButton.Size = new System.Drawing.Size(68, 21);
             this.DashMonthRadioButton.TabIndex = 6;
@@ -121,7 +126,7 @@
             // DashWeekRadioButton
             // 
             this.DashWeekRadioButton.AutoSize = true;
-            this.DashWeekRadioButton.Location = new System.Drawing.Point(216, 95);
+            this.DashWeekRadioButton.Location = new System.Drawing.Point(195, 68);
             this.DashWeekRadioButton.Name = "DashWeekRadioButton";
             this.DashWeekRadioButton.Size = new System.Drawing.Size(65, 21);
             this.DashWeekRadioButton.TabIndex = 7;
@@ -134,7 +139,7 @@
             // 
             this.DashViewCalendarLabel.AutoSize = true;
             this.DashViewCalendarLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DashViewCalendarLabel.Location = new System.Drawing.Point(109, 66);
+            this.DashViewCalendarLabel.Location = new System.Drawing.Point(88, 39);
             this.DashViewCalendarLabel.Name = "DashViewCalendarLabel";
             this.DashViewCalendarLabel.Size = new System.Drawing.Size(181, 24);
             this.DashViewCalendarLabel.TabIndex = 8;
@@ -236,12 +241,51 @@
             this.DBDeleteCust.UseVisualStyleBackColor = true;
             this.DBDeleteCust.Click += new System.EventHandler(this.DBDeleteCust_Click);
             // 
+            // SchedByConsReportButton
+            // 
+            this.SchedByConsReportButton.FlatAppearance.BorderSize = 2;
+            this.SchedByConsReportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SchedByConsReportButton.Location = new System.Drawing.Point(34, 99);
+            this.SchedByConsReportButton.Name = "SchedByConsReportButton";
+            this.SchedByConsReportButton.Size = new System.Drawing.Size(230, 56);
+            this.SchedByConsReportButton.TabIndex = 17;
+            this.SchedByConsReportButton.Text = "Schedule By Consultant";
+            this.SchedByConsReportButton.UseVisualStyleBackColor = true;
+            this.SchedByConsReportButton.Click += new System.EventHandler(this.SchedByConsReportButton_Click);
+            // 
+            // ActiveUserReport
+            // 
+            this.ActiveUserReport.FlatAppearance.BorderSize = 2;
+            this.ActiveUserReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ActiveUserReport.Location = new System.Drawing.Point(34, 161);
+            this.ActiveUserReport.Name = "ActiveUserReport";
+            this.ActiveUserReport.Size = new System.Drawing.Size(230, 56);
+            this.ActiveUserReport.TabIndex = 18;
+            this.ActiveUserReport.Text = "Active User List";
+            this.ActiveUserReport.UseVisualStyleBackColor = true;
+            this.ActiveUserReport.Click += new System.EventHandler(this.ActiveUserReport_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.LightSalmon;
+            this.groupBox1.Controls.Add(this.ActiveUserReport);
+            this.groupBox1.Controls.Add(this.SchedByConsReportButton);
+            this.groupBox1.Controls.Add(this.ApptTypesByMonthButton);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(32, 390);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(307, 237);
+            this.groupBox1.TabIndex = 20;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Reports";
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
             this.ClientSize = new System.Drawing.Size(1066, 675);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.DBDeleteCust);
             this.Controls.Add(this.DBDeleteApptButton);
             this.Controls.Add(this.DBModifyApptButton);
@@ -255,7 +299,6 @@
             this.Controls.Add(this.DashMonthRadioButton);
             this.Controls.Add(this.DashboardApptDGV);
             this.Controls.Add(this.DBExitButton);
-            this.Controls.Add(this.DBViewReportsButton);
             this.Controls.Add(this.DBEAddCustButton);
             this.Controls.Add(this.monthCalendar1);
             this.Name = "Dashboard";
@@ -263,6 +306,7 @@
             this.Text = "Dashboard";
             ((System.ComponentModel.ISupportInitialize)(this.DashboardApptDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DashboardCustDGV)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,7 +316,7 @@
 
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.Button DBEAddCustButton;
-        private System.Windows.Forms.Button DBViewReportsButton;
+        private System.Windows.Forms.Button ApptTypesByMonthButton;
         private System.Windows.Forms.Button DBExitButton;
         private System.Windows.Forms.DataGridView DashboardApptDGV;
         private System.Windows.Forms.RadioButton DashMonthRadioButton;
@@ -286,5 +330,8 @@
         private System.Windows.Forms.Button DBModifyApptButton;
         private System.Windows.Forms.Button DBDeleteApptButton;
         private System.Windows.Forms.Button DBDeleteCust;
+        private System.Windows.Forms.Button SchedByConsReportButton;
+        private System.Windows.Forms.Button ActiveUserReport;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

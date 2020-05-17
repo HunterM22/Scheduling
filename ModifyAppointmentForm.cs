@@ -24,7 +24,7 @@ namespace SchedulingApplication
 
             //Populate fields
             DataTable dt = new DataTable();
-            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cn = new MySqlConnection(connStr))
             {
                 cn.Open();
@@ -64,7 +64,7 @@ namespace SchedulingApplication
             {
                 string type = MATypeCombobox.GetItemText(MATypeCombobox.SelectedItem);
                 //connection string 
-                string Connection = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+                string Connection = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                 MySqlConnection Conn = new MySqlConnection(Connection);
                 //query
                 string Query = "Update appointment Set type = '" + type + "', start = '" + MAStartTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "', end = '" + MAEndTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdate = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy = '" + Globals.CurrUserName + "' WHERE appointmentId = '" + Globals.ApptId + "';";

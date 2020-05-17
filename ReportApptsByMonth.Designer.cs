@@ -37,6 +37,11 @@
             this.febTB = new System.Windows.Forms.TextBox();
             this.MarTB = new System.Windows.Forms.TextBox();
             this.AprTB = new System.Windows.Forms.TextBox();
+            this.FebPresTB = new System.Windows.Forms.TextBox();
+            this.MarPresTB = new System.Windows.Forms.TextBox();
+            this.AprPresTB = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,7 +117,7 @@
             this.febTB.Location = new System.Drawing.Point(226, 353);
             this.febTB.Name = "febTB";
             this.febTB.ReadOnly = true;
-            this.febTB.Size = new System.Drawing.Size(63, 30);
+            this.febTB.Size = new System.Drawing.Size(94, 30);
             this.febTB.TabIndex = 9;
             this.febTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.febTB.TextChanged += new System.EventHandler(this.febTB_TextChanged);
@@ -123,7 +128,7 @@
             this.MarTB.Location = new System.Drawing.Point(226, 409);
             this.MarTB.Name = "MarTB";
             this.MarTB.ReadOnly = true;
-            this.MarTB.Size = new System.Drawing.Size(63, 30);
+            this.MarTB.Size = new System.Drawing.Size(94, 30);
             this.MarTB.TabIndex = 10;
             this.MarTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.MarTB.TextChanged += new System.EventHandler(this.MarTB_TextChanged);
@@ -131,12 +136,63 @@
             // AprTB
             // 
             this.AprTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AprTB.Location = new System.Drawing.Point(226, 463);
+            this.AprTB.Location = new System.Drawing.Point(226, 465);
             this.AprTB.Name = "AprTB";
             this.AprTB.ReadOnly = true;
-            this.AprTB.Size = new System.Drawing.Size(63, 30);
+            this.AprTB.Size = new System.Drawing.Size(94, 30);
             this.AprTB.TabIndex = 11;
             this.AprTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // FebPresTB
+            // 
+            this.FebPresTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FebPresTB.Location = new System.Drawing.Point(335, 353);
+            this.FebPresTB.Name = "FebPresTB";
+            this.FebPresTB.ReadOnly = true;
+            this.FebPresTB.Size = new System.Drawing.Size(94, 30);
+            this.FebPresTB.TabIndex = 12;
+            this.FebPresTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // MarPresTB
+            // 
+            this.MarPresTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MarPresTB.Location = new System.Drawing.Point(335, 409);
+            this.MarPresTB.Name = "MarPresTB";
+            this.MarPresTB.ReadOnly = true;
+            this.MarPresTB.Size = new System.Drawing.Size(94, 30);
+            this.MarPresTB.TabIndex = 13;
+            this.MarPresTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.MarPresTB.TextChanged += new System.EventHandler(this.MarPresTB_TextChanged);
+            // 
+            // AprPresTB
+            // 
+            this.AprPresTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AprPresTB.Location = new System.Drawing.Point(335, 465);
+            this.AprPresTB.Name = "AprPresTB";
+            this.AprPresTB.ReadOnly = true;
+            this.AprPresTB.Size = new System.Drawing.Size(94, 30);
+            this.AprPresTB.TabIndex = 14;
+            this.AprPresTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(242, 325);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 20);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Scrum";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(331, 325);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 20);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Presentation";
             // 
             // ReportApptsByMonth
             // 
@@ -144,6 +200,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(656, 617);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.AprPresTB);
+            this.Controls.Add(this.MarPresTB);
+            this.Controls.Add(this.FebPresTB);
             this.Controls.Add(this.AprTB);
             this.Controls.Add(this.MarTB);
             this.Controls.Add(this.febTB);
@@ -173,5 +234,10 @@
         private System.Windows.Forms.TextBox febTB;
         private System.Windows.Forms.TextBox MarTB;
         private System.Windows.Forms.TextBox AprTB;
+        private System.Windows.Forms.TextBox FebPresTB;
+        private System.Windows.Forms.TextBox MarPresTB;
+        private System.Windows.Forms.TextBox AprPresTB;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

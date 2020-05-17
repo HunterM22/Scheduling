@@ -20,7 +20,7 @@ namespace SchedulingApplication
 
             //Fill Customer Table
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection con = new MySqlConnection(connStrg))
             {
                 con.Open();
@@ -53,8 +53,8 @@ namespace SchedulingApplication
         private void ExitButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Reports rform = new Reports();
-            rform.ShowDialog();
+            Dashboard db = new Dashboard();
+            db.ShowDialog();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

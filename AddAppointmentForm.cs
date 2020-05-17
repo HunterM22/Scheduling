@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.Cms;
 
 namespace SchedulingApplication
 {
@@ -21,7 +22,7 @@ namespace SchedulingApplication
 
             //Fill customer combo box
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection con = new MySqlConnection(connStrg))
             {
                 con.Open();
@@ -54,11 +55,13 @@ namespace SchedulingApplication
 
         private void AASaveButton_Click(object sender, EventArgs e)
         {
-            
+            DateTime STime = new DateTime();
+            //STime = AAStartTimePicker.Value.ToString();
+            //if 
             try
             {
                 //con string
-                string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+                string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
 
                 //insert qry 
                 string Query = "insert into appointment(customerId,userId,type,start,end,createDate,createdBy)     " +
@@ -123,7 +126,7 @@ namespace SchedulingApplication
             
             string cmbslct = AACustomerComboBox.GetItemText(AACustomerComboBox.SelectedItem);
 
-            string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cmn = new MySqlConnection(mconnStrg))
             {
                 cmn.Open();

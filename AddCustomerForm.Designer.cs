@@ -48,6 +48,7 @@
             this.ACPhoneTextBox.Name = "ACPhoneTextBox";
             this.ACPhoneTextBox.Size = new System.Drawing.Size(263, 22);
             this.ACPhoneTextBox.TabIndex = 33;
+            this.ACPhoneTextBox.TextChanged += new System.EventHandler(this.ACPhoneTextBox_TextChanged);
             // 
             // ACPhoneLabel
             // 
@@ -87,6 +88,8 @@
             this.ACZipTextbox.Name = "ACZipTextbox";
             this.ACZipTextbox.Size = new System.Drawing.Size(212, 22);
             this.ACZipTextbox.TabIndex = 28;
+            this.ACZipTextbox.TextChanged += new System.EventHandler(this.ACZipTextbox_TextChanged);
+            this.ACZipTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ACZipTextbox_KeyPress);
             // 
             // ACAddressTextbox
             // 
@@ -94,6 +97,7 @@
             this.ACAddressTextbox.Name = "ACAddressTextbox";
             this.ACAddressTextbox.Size = new System.Drawing.Size(263, 22);
             this.ACAddressTextbox.TabIndex = 25;
+            this.ACAddressTextbox.TextChanged += new System.EventHandler(this.ACAddressTextbox_TextChanged);
             // 
             // ACNameTextbox
             // 
@@ -101,6 +105,8 @@
             this.ACNameTextbox.Name = "ACNameTextbox";
             this.ACNameTextbox.Size = new System.Drawing.Size(263, 22);
             this.ACNameTextbox.TabIndex = 24;
+            this.ACNameTextbox.TextChanged += new System.EventHandler(this.ACNameTextbox_TextChanged);
+            this.ACNameTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ACNameTextbox_KeyPress);
             // 
             // ACZipcodeLabel
             // 

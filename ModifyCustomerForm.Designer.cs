@@ -88,6 +88,7 @@
             this.MCNameTextbox.Name = "MCNameTextbox";
             this.MCNameTextbox.Size = new System.Drawing.Size(263, 22);
             this.MCNameTextbox.TabIndex = 7;
+            this.MCNameTextbox.TextChanged += new System.EventHandler(this.MCNameTextbox_TextChanged);
             // 
             // MCAddressTextbox
             // 
@@ -95,6 +96,7 @@
             this.MCAddressTextbox.Name = "MCAddressTextbox";
             this.MCAddressTextbox.Size = new System.Drawing.Size(263, 22);
             this.MCAddressTextbox.TabIndex = 8;
+            this.MCAddressTextbox.TextChanged += new System.EventHandler(this.MCAddressTextbox_TextChanged);
             // 
             // MCZipTextbox
             // 
@@ -102,6 +104,7 @@
             this.MCZipTextbox.Name = "MCZipTextbox";
             this.MCZipTextbox.Size = new System.Drawing.Size(205, 22);
             this.MCZipTextbox.TabIndex = 11;
+            this.MCZipTextbox.TextChanged += new System.EventHandler(this.MCZipTextbox_TextChanged);
             // 
             // MCPhoneLabel
             // 
@@ -119,6 +122,7 @@
             this.MCPhoneButton.Name = "MCPhoneButton";
             this.MCPhoneButton.Size = new System.Drawing.Size(263, 22);
             this.MCPhoneButton.TabIndex = 16;
+            this.MCPhoneButton.TextChanged += new System.EventHandler(this.MCPhoneButton_TextChanged);
             // 
             // MCCancelButton
             // 
@@ -149,6 +153,7 @@
             this.CityComboBox.Name = "CityComboBox";
             this.CityComboBox.Size = new System.Drawing.Size(205, 24);
             this.CityComboBox.TabIndex = 34;
+            this.CityComboBox.SelectedIndexChanged += new System.EventHandler(this.CityComboBox_SelectedIndexChanged);
             this.CityComboBox.DropDownClosed += new System.EventHandler(this.CityComboBox_DropDownClosed);
             this.CityComboBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CityComboBox_MouseClick);
             // 

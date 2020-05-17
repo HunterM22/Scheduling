@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace SchedulingApplication
         public LogIn()
         {
             InitializeComponent();
+                                
 
             CultureInfo mx = CultureInfo.CurrentCulture;
 
@@ -29,9 +31,9 @@ namespace SchedulingApplication
                 LogInButton.Text = "Iniciar sesion";
                 LogInExitButton.Text = "Salida";
             }
+
         }
 
-        
         private void LogIn_Load(object sender, EventArgs e)
         {
 
@@ -66,11 +68,22 @@ namespace SchedulingApplication
                 showDB.ShowDialog();
             }
             mcon.Close();
+
+            //Log File////////////////////////////////////////////////////////////////
+            try
+            {
+                using (StreamWriter writer = new StreamWriter("log.txt", true))
+                {
+                    writer.WriteLine(LogInUsernameTextBox.Text + " " + DateTime.Now.ToString());
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("The file could not be read:");                
+            }
         }
 
-
-
-        private void LogInExitButton_Click(object sender, EventArgs e)
+            private void LogInExitButton_Click(object sender, EventArgs e)
         {
             this.Close();
 

@@ -19,7 +19,7 @@ namespace SchedulingApplication
 
             //Fill city combo box
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection con = new MySqlConnection(connStrg))
             {
                 con.Open();
@@ -40,7 +40,7 @@ namespace SchedulingApplication
             
             //Get customerName
             DataTable dt = new DataTable();
-            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cn = new MySqlConnection(connStr))
             {
                 cn.Open();
@@ -54,7 +54,7 @@ namespace SchedulingApplication
             }
             //Get address/zip/phone
             DataTable da = new DataTable();
-            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cn = new MySqlConnection(connSt))
             {
                 cn.Open();
@@ -74,7 +74,7 @@ namespace SchedulingApplication
             }
             //Get city
             DataTable dc = new DataTable();
-            string connS = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connS = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cn = new MySqlConnection(connS))
             {
                 cn.Open();
@@ -104,7 +104,7 @@ namespace SchedulingApplication
         {
             string ctyslct = CityComboBox.GetItemText(CityComboBox.SelectedItem);
 
-            string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cmn = new MySqlConnection(mconnStrg))
             {
                 cmn.Open();
@@ -133,7 +133,7 @@ namespace SchedulingApplication
         {
             //Fill city combo box
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection con = new MySqlConnection(connStrg))
             {
                 con.Open();
@@ -153,11 +153,12 @@ namespace SchedulingApplication
 
         private void MCUpdateButton_Click(object sender, EventArgs e)
         {//SAVE UPDATES
+            string ctyslct = CityComboBox.GetItemText(CityComboBox.SelectedItem);
             try
             {
                 //UPDATE ADDRESS/CITY/COUNTRY
-                string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
-                string Query = "Update address set address ='" + MCAddressTextbox.Text + "', cityId = '" + Globals.CtyID + "', postalCode = '" + MCZipTextbox.Text + "', phone = '" + MCPhoneButton.Text + "', lastUpdate ='" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' Where addressId = '" + Globals.AddID + "';";                
+                string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+                string Query = "Update address set address ='" + MCAddressTextbox.Text + "', cityId = '" + ctyslct + "', postalCode = '" + MCZipTextbox.Text + "', phone = '" + MCPhoneButton.Text + "', lastUpdate ='" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' Where addressId = '" + Globals.AddID + "';";
                 MySqlConnection con2 = new MySqlConnection(con);
                 MySqlCommand comm = new MySqlCommand(Query, con2);
                 con2.Open();
@@ -165,7 +166,7 @@ namespace SchedulingApplication
                 con2.Close();
 
                 //UPDATECUSTOMER
-                string conx = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+                string conx = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                 string Queryx = "Update customer SET customerName = '" + MCNameTextbox.Text + "', lastUpdate ='" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' WHERE customerId = '" + Globals.CustID + "';";
                 //connection object and string  
                 MySqlConnection con2x = new MySqlConnection(conx);
@@ -174,17 +175,70 @@ namespace SchedulingApplication
                 con2x.Open();
                 commx.ExecuteNonQuery();
                 MessageBox.Show("Data Saved");
-               
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 MessageBox.Show("Could not update customer.", "Error");
             }
-
+                            
+           
 
             this.Hide();
             Dashboard db = new Dashboard();
             db.ShowDialog();
+        }
+
+        private void CityComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MCNameTextbox_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(MCNameTextbox.Text))
+            {
+                MCNameTextbox.BackColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                MCNameTextbox.BackColor = System.Drawing.Color.White;
+            }
+        }
+
+        private void MCAddressTextbox_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(MCAddressTextbox.Text))
+            {
+                MCAddressTextbox.BackColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                MCAddressTextbox.BackColor = System.Drawing.Color.White;
+            }
+        }
+
+        private void MCZipTextbox_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(MCZipTextbox.Text))
+            {
+                MCZipTextbox.BackColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                MCZipTextbox.BackColor = System.Drawing.Color.White;
+            }
+        }
+
+        private void MCPhoneButton_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(MCPhoneButton.Text))
+            {
+                MCPhoneButton.BackColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                MCPhoneButton.BackColor = System.Drawing.Color.White;
+            }
         }
     }
 }

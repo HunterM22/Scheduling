@@ -21,7 +21,7 @@ namespace SchedulingApplication
 
             //Fill Appointment Table
             
-            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             MySqlConnection cn = new MySqlConnection(connStr);
             
             cn.Open();
@@ -33,23 +33,37 @@ namespace SchedulingApplication
             cn.Close();
 
             //Get Feb appt count
-            string conStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string conStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             MySqlConnection con = new MySqlConnection(conStr);
             con.Open();
-            MySqlCommand cmmd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-02%';",con);
+            MySqlCommand cmmd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-02%' AND type = 'Scrum';", con);
             MySqlDataAdapter adpt = new MySqlDataAdapter(cmmd);
             DataTable df = new DataTable();
             adpt.Fill(df);
 
-            string febapptcount = df.Rows[0][0].ToString();
-            febTB.Text = febapptcount;
+            string febscrumcount = df.Rows[0][0].ToString();
+            febTB.Text = febscrumcount;
             con.Close();
 
+            string pconStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            MySqlConnection pcon = new MySqlConnection(pconStr);
+            pcon.Open();
+            MySqlCommand pcmmd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-02%' AND type = 'Presentation';", con);
+            MySqlDataAdapter padpt = new MySqlDataAdapter(pcmmd);
+            DataTable pdf = new DataTable();
+            padpt.Fill(pdf);
+
+            string febprescount = pdf.Rows[0][0].ToString();
+            FebPresTB.Text = febprescount;
+            pcon.Close();
+
+
+
             //Get March appt count
-            string onStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string onStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             MySqlConnection on = new MySqlConnection(onStr);
             on.Open();
-            MySqlCommand mmd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-03%';", on);
+            MySqlCommand mmd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-03%' AND type = 'Scrum';", on);
             MySqlDataAdapter apt = new MySqlDataAdapter(mmd);
             DataTable dm = new DataTable();
             apt.Fill(dm);
@@ -58,11 +72,23 @@ namespace SchedulingApplication
             MarTB.Text = marapptcount;
             on.Close();
 
+            string ponStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            MySqlConnection pon = new MySqlConnection(ponStr);
+            pon.Open();
+            MySqlCommand pmmd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-03%' AND type = 'Presentation';", pon);
+            MySqlDataAdapter pdpt = new MySqlDataAdapter(pmmd);
+            DataTable ppf = new DataTable();
+            pdpt.Fill(ppf);
+
+            string marprescount = ppf.Rows[0][0].ToString();
+            MarPresTB.Text = marprescount;
+            pon.Close();
+
             //Get Apr appt count
-            string aonStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None";
+            string aonStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             MySqlConnection aon = new MySqlConnection(aonStr);
             aon.Open();
-            MySqlCommand ammd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-04%';", aon);
+            MySqlCommand ammd = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-04%' AND type = 'Scrum';", aon);
             MySqlDataAdapter aapt = new MySqlDataAdapter(ammd);
             DataTable adm = new DataTable();
             aapt.Fill(adm);
@@ -70,6 +96,18 @@ namespace SchedulingApplication
             string aprapptcount = adm.Rows[0][0].ToString();
             AprTB.Text = aprapptcount;
             aon.Close();
+
+            string apr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            MySqlConnection apon = new MySqlConnection(apr);
+            apon.Open();
+            MySqlCommand papr = new MySqlCommand("SELECT COUNT(*) FROM appointment WHERE start LIKE '2019-04%' AND type = 'Presentation';", apon);
+            MySqlDataAdapter aprt = new MySqlDataAdapter(papr);
+            DataTable arp = new DataTable();
+            aprt.Fill(arp);
+
+            string aprprescount = arp.Rows[0][0].ToString();
+            AprPresTB.Text = aprprescount;
+            apon.Close();
 
         }
 
@@ -97,8 +135,8 @@ namespace SchedulingApplication
         private void ExitButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Reports rform = new Reports();
-            rform.ShowDialog();
+            Dashboard db = new Dashboard();
+            db.ShowDialog();
         }
 
         private void MarTB_TextChanged(object sender, EventArgs e)
@@ -107,6 +145,11 @@ namespace SchedulingApplication
         }
 
         private void febTB_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MarPresTB_TextChanged(object sender, EventArgs e)
         {
 
         }
