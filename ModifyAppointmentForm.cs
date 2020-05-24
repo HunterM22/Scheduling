@@ -21,7 +21,6 @@ namespace SchedulingApplication
             MATypeCombobox.Items.Add("Scrum");
             MATypeCombobox.Items.Add("Presentation");
 
-
             //Populate fields
             DataTable dt = new DataTable();
             string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
@@ -32,12 +31,11 @@ namespace SchedulingApplication
                 MySqlDataReader reader = cmd.ExecuteReader();
                 dt.Load(reader);
 
-                string type = (string)dt.Rows[Globals.CurrApptIndex]["type"]; 
-                DateTime start = (DateTime)dt.Rows[Globals.CurrApptIndex]["start"];
-                DateTime end = (DateTime)dt.Rows[Globals.CurrApptIndex]["end"];
+                string type = (string)dt.Rows[Globals.CurrApptIndex]["type"];     
+                DateTime start = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dt.Rows[Globals.CurrApptIndex]["start"], TimeZoneInfo.Local);
+                DateTime end = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dt.Rows[Globals.CurrApptIndex]["end"], TimeZoneInfo.Local);
                 Globals.ApptId = (int)dt.Rows[Globals.CurrApptIndex]["appointmentId"];
 
-                
                 MATypeCombobox.Text = type;
                 MAStartTimePicker.Value = (DateTime)start;
                 MAEndTimePicker.Value = (DateTime)end;
@@ -58,31 +56,86 @@ namespace SchedulingApplication
             db.ShowDialog();
         }
 
+        private bool BizHourCheck()
+        {
+            var beginBusinessHours = new TimeSpan(8, 0, 0);
+            var endBusinessHours = new TimeSpan(17, 1, 1);
+            var appointmentBeginTime = MAStartTimePicker.Value.TimeOfDay;
+            var appointmentEndTime = MAEndTimePicker.Value.TimeOfDay;
+
+            if (appointmentBeginTime < beginBusinessHours || appointmentEndTime > endBusinessHours)
+            {
+                bizhourlabel.Text = "Appointment must be between 8am and 5pm.";
+                return false;
+            }
+
+            return true;
+        }
+
         private void MAUpdateButton_Click(object sender, EventArgs e)
         {
-            try
+            if (!BizHourCheck())
             {
-                string type = MATypeCombobox.GetItemText(MATypeCombobox.SelectedItem);
-                //connection string 
-                string Connection = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-                MySqlConnection Conn = new MySqlConnection(Connection);
-                //query
-                string Query = "Update appointment Set type = '" + type + "', start = '" + MAStartTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "', end = '" + MAEndTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdate = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy = '" + Globals.CurrUserName + "' WHERE appointmentId = '" + Globals.ApptId + "';";
-                MySqlCommand comm = new MySqlCommand(Query, Conn);
-                Conn.Open();
-                comm.ExecuteNonQuery();
-                MessageBox.Show("Data Updated");
-                Conn.Close();
-            }
-            catch 
-            {
-                MessageBox.Show("Could not update appointment.", "Error");
+                bizhourlabel.Visible = true;
+                return;
             }
 
+            //Get Appt List
+            DateTime AStart = new DateTime();
+            DateTime AEnd = new DateTime();
 
-            this.Hide();
-            Dashboard db = new Dashboard();
-            db.ShowDialog();
+            AStart = TimeZoneInfo.ConvertTimeToUtc(MAStartTimePicker.Value);
+            AEnd = TimeZoneInfo.ConvertTimeToUtc(MAEndTimePicker.Value);
+
+            DataTable dt = new DataTable();
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection cn = new MySqlConnection(connStr))
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                dt.Load(reader);
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DateTime bStart = Convert.ToDateTime(dt.Rows[i]["start"]);
+                        DateTime bEnd = Convert.ToDateTime(dt.Rows[i]["end"]);
+                        if (AStart < bEnd && bStart < AEnd)
+                        {
+                            MessageBox.Show("Scheduling Conflict: Overlapping meeting times. Please Try Again.");
+                            return;
+
+
+                        }
+                        cn.Close();
+                    }
+                }
+
+                try
+                {
+                    string type = MATypeCombobox.GetItemText(MATypeCombobox.SelectedItem);
+                    //connection string 
+                    string Connection = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+                    MySqlConnection Conn = new MySqlConnection(Connection);
+                    //query
+                    string Query = "Update appointment Set type = '" + type + "', start = '" + TimeZoneInfo.ConvertTimeToUtc(MAStartTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', end = '" + TimeZoneInfo.ConvertTimeToUtc(MAEndTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', lastUpdate = '" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss tt") + "', lastUpdateBy = '" + Globals.CurrUserName + "' WHERE appointmentId = '" + Globals.ApptId + "';";
+                    MySqlCommand comm = new MySqlCommand(Query, Conn);
+                    Conn.Open();
+                    comm.ExecuteNonQuery();
+                    MessageBox.Show("Data Updated");
+                    Conn.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("Could not update appointment.", "Error");
+                }
+
+
+                this.Hide();
+                Dashboard db = new Dashboard();
+                db.ShowDialog();
+            }
         }
 
         private void MATypeCombobox_Click(object sender, EventArgs e)

@@ -16,6 +16,9 @@ namespace SchedulingApplication
 {
     public partial class LogIn : Form
     {
+        public delegate string GreetingsDelegate(string name);
+        string name = Globals.CurrUserName;
+
         public LogIn()
         {
             InitializeComponent();
@@ -63,6 +66,14 @@ namespace SchedulingApplication
             }
             else
             {
+                GreetingsDelegate obj = (name) => 
+                {
+                    return "Hello " + name + "!";
+                };
+                string GreetingsMessage = obj.Invoke("Test");
+                Console.WriteLine(GreetingsMessage);
+                //Lambda to shorten syntax
+
                 this.Hide();
                 Dashboard showDB = new Dashboard();
                 showDB.ShowDialog();
@@ -93,5 +104,6 @@ namespace SchedulingApplication
         {
             
         }
+
     }
 }

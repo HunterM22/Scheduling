@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -46,6 +48,27 @@ namespace SchedulingApplication
 
         private void ACAddButton_Click(object sender, EventArgs e)
         {//SAVE NEW CUSTOMER
+            if (String.IsNullOrEmpty(ACNameTextbox.Text))
+            {
+                MessageBox.Show("Please enter a name.");
+                return;
+            }
+            if (String.IsNullOrEmpty(ACAddressTextbox.Text))
+            {
+                MessageBox.Show("Please enter an address.");
+                return;
+            }
+            if (String.IsNullOrEmpty(ACZipTextbox.Text))
+            {
+                MessageBox.Show("Please enter a zip code.");
+                return;
+            }
+            if (String.IsNullOrEmpty(ACPhoneTextBox.Text))
+            {
+                MessageBox.Show("Please enter a phone number.");
+                return;
+            }
+
                 try
                 {
                     //Get City ID
@@ -73,7 +96,7 @@ namespace SchedulingApplication
                     //insert ADDRESS/CITY/COUNTRY
                     string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                     string Query = "Insert into address(address,cityId,postalCode,phone,createDate,createdBy) " +
-                        "Values('" + ACAddressTextbox.Text + "','" + Globals.CtyID + "','" + ACZipTextbox.Text + "','" + ACPhoneTextBox.Text + "','" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.CurrUserName + "');";
+                        "Values('" + ACAddressTextbox.Text + "','" + Globals.CtyID + "','" + ACZipTextbox.Text + "','" + ACPhoneTextBox.Text + "','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.CurrUserName + "');";
                     MySqlConnection con2 = new MySqlConnection(con);
                     MySqlCommand comm = new MySqlCommand(Query, con2);
                     MySqlDataReader rdr;
@@ -103,7 +126,7 @@ namespace SchedulingApplication
                     //con string
                     string conx = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                     string Queryx = "Insert into customer(customerName,addressId,active,createDate,createdBy)" +
-                        "Values('" + ACNameTextbox.Text + "','" + Globals.AddID + "','1','" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.CurrUserName + "');";
+                        "Values('" + ACNameTextbox.Text + "','" + Globals.AddID + "','1','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.CurrUserName + "');";
                     //connection object and string  
                     MySqlConnection con2x = new MySqlConnection(conx);
                     //command -handle the query and connection object.  
@@ -117,12 +140,12 @@ namespace SchedulingApplication
                     }
                     con2x.Close();
                 }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Could not add customer.", "Error");
-            }
+                catch (Exception)
+                {
+                    MessageBox.Show("Customer could not be added.", "Error");
+                }
 
-
+                        
             this.Hide();
             Dashboard db = new Dashboard();
             db.ShowDialog();
@@ -184,7 +207,7 @@ namespace SchedulingApplication
 
             private void ACNameTextbox_KeyPress(object sender, KeyPressEventArgs e)
         {
-           
+        
         }
 
         private void ACZipTextbox_KeyPress(object sender, KeyPressEventArgs e)
@@ -207,27 +230,27 @@ namespace SchedulingApplication
 
         private void ACZipTextbox_TextChanged(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(ACZipTextbox.Text))
+            Regex phoneNumpattern = new Regex(@"[\d -]+");
+            if (phoneNumpattern.IsMatch(ACZipTextbox.Text))
             {
-                ACZipTextbox.BackColor = System.Drawing.Color.Red;
+                ACZipTextbox.BackColor = System.Drawing.Color.White;
             }
             else
             {
-                ACZipTextbox.BackColor = System.Drawing.Color.White;
-
+                ACZipTextbox.BackColor = System.Drawing.Color.Red;
             }
         }
 
         private void ACPhoneTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(ACPhoneTextBox.Text))
+            Regex phoneNumpattern = new Regex(@"[\d -]+");
+            if (phoneNumpattern.IsMatch(ACPhoneTextBox.Text))
             {
-                ACPhoneTextBox.BackColor = System.Drawing.Color.Red;
+                ACPhoneTextBox.BackColor = System.Drawing.Color.White;
             }
             else
             {
-                ACPhoneTextBox.BackColor = System.Drawing.Color.White;
-
+                ACPhoneTextBox.BackColor = System.Drawing.Color.Red;
             }
         }
     }

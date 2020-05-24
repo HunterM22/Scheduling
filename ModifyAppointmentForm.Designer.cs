@@ -36,6 +36,7 @@
             this.MATypeCombobox = new System.Windows.Forms.ComboBox();
             this.MAApptTypeLabel = new System.Windows.Forms.Label();
             this.MACancelButton = new System.Windows.Forms.Button();
+            this.bizhourlabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // MAUpdateButton
@@ -54,9 +55,12 @@
             this.MAStartTimePicker.CustomFormat = "\"MM\'/\'dd\'/\'yyyy hh\':\'mm tt\"";
             this.MAStartTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.MAStartTimePicker.Location = new System.Drawing.Point(138, 107);
+            this.MAStartTimePicker.MaxDate = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
+            this.MAStartTimePicker.MinDate = new System.DateTime(2019, 2, 1, 0, 0, 0, 0);
             this.MAStartTimePicker.Name = "MAStartTimePicker";
             this.MAStartTimePicker.Size = new System.Drawing.Size(244, 22);
             this.MAStartTimePicker.TabIndex = 28;
+            this.MAStartTimePicker.Value = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
             // 
             // MAStartTimeLabel
             // 
@@ -83,9 +87,12 @@
             this.MAEndTimePicker.CustomFormat = "\"MM\'/\'dd\'/\'yyyy hh\':\'mm tt\"";
             this.MAEndTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.MAEndTimePicker.Location = new System.Drawing.Point(138, 143);
+            this.MAEndTimePicker.MaxDate = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
+            this.MAEndTimePicker.MinDate = new System.DateTime(2019, 2, 1, 0, 0, 0, 0);
             this.MAEndTimePicker.Name = "MAEndTimePicker";
             this.MAEndTimePicker.Size = new System.Drawing.Size(244, 22);
             this.MAEndTimePicker.TabIndex = 31;
+            this.MAEndTimePicker.Value = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
             // 
             // MATypeCombobox
             // 
@@ -117,12 +124,24 @@
             this.MACancelButton.UseVisualStyleBackColor = true;
             this.MACancelButton.Click += new System.EventHandler(this.MACancelButton_Click);
             // 
+            // bizhourlabel
+            // 
+            this.bizhourlabel.AutoSize = true;
+            this.bizhourlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bizhourlabel.ForeColor = System.Drawing.Color.DarkRed;
+            this.bizhourlabel.Location = new System.Drawing.Point(21, 183);
+            this.bizhourlabel.Name = "bizhourlabel";
+            this.bizhourlabel.Size = new System.Drawing.Size(0, 18);
+            this.bizhourlabel.TabIndex = 57;
+            this.bizhourlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ModifyAppointmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
             this.ClientSize = new System.Drawing.Size(438, 371);
+            this.Controls.Add(this.bizhourlabel);
             this.Controls.Add(this.MAApptTypeLabel);
             this.Controls.Add(this.MATypeCombobox);
             this.Controls.Add(this.MAEndTimePicker);
@@ -149,5 +168,6 @@
         private System.Windows.Forms.ComboBox MATypeCombobox;
         private System.Windows.Forms.Label MAApptTypeLabel;
         private System.Windows.Forms.Button MACancelButton;
+        private System.Windows.Forms.Label bizhourlabel;
     }
 }

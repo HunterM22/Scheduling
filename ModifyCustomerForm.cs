@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -86,10 +87,22 @@ namespace SchedulingApplication
                 CityComboBox.Text = city;
                 cn.Close();
             }
-            /////////END PREFILL//////////
+            /////////END PREFILL///////// 
 
+            ///Get City ID
+            DataTable ic = new DataTable();
+            string i = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection icn = new MySqlConnection(i))
+            {
+                icn.Open();
+                MySqlCommand icmd = new MySqlCommand("select cityId from city where city = '"+ CityComboBox.Text +"';", icn);
+                MySqlDataReader reader = icmd.ExecuteReader();
+                ic.Load(reader);
 
-
+                int cidc = (int)ic.Rows[0][0];
+                Globals.CtyID = cidc;
+                icn.Close();
+            }
 
         }
 
@@ -131,34 +144,55 @@ namespace SchedulingApplication
 
         private void CityComboBox_MouseClick(object sender, MouseEventArgs e)
         {
-            //Fill city combo box
-            DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection con = new MySqlConnection(connStrg))
-            {
-                con.Open();
-                MySqlCommand cmmd = new MySqlCommand("select * from city", con);
-                MySqlDataReader creader = cmmd.ExecuteReader();
-                ct.Load(creader);
+            ////Fill city combo box
+            //DataTable ct = new DataTable();
+            //string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            //using (MySqlConnection con = new MySqlConnection(connStrg))
+            //{
+            //    con.Open();
+            //    MySqlCommand cmmd = new MySqlCommand("select * from city", con);
+            //    MySqlDataReader creader = cmmd.ExecuteReader();
+            //    ct.Load(creader);
 
-                if (ct.Rows.Count > 0)
-                {
-                    CityComboBox.DataSource = ct;
-                    CityComboBox.DisplayMember = "customerName";
-                }
-                con.Close();
+            //    if (ct.Rows.Count > 0)
+            //    {
+            //        CityComboBox.DataSource = ct;
+            //        CityComboBox.DisplayMember = "customerName";
+            //    }
+            //    con.Close();
 
-            }
+            //}
         }
 
         private void MCUpdateButton_Click(object sender, EventArgs e)
         {//SAVE UPDATES
+            if (String.IsNullOrEmpty(MCNameTextbox.Text))
+            {
+                MessageBox.Show("Please enter a name.");
+                return;
+            }
+            if (String.IsNullOrEmpty(MCAddressTextbox.Text))
+            {
+                MessageBox.Show("Please enter an address.");
+                return;
+            }
+            if (String.IsNullOrEmpty(MCZipTextbox.Text))
+            {
+                MessageBox.Show("Please enter a zip code.");
+                return;
+            }
+            if (String.IsNullOrEmpty(MCPhoneButton.Text))
+            {
+                MessageBox.Show("Please enter a phone number.");
+                return;
+            }
+
             string ctyslct = CityComboBox.GetItemText(CityComboBox.SelectedItem);
             try
             {
                 //UPDATE ADDRESS/CITY/COUNTRY
                 string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-                string Query = "Update address set address ='" + MCAddressTextbox.Text + "', cityId = '" + ctyslct + "', postalCode = '" + MCZipTextbox.Text + "', phone = '" + MCPhoneButton.Text + "', lastUpdate ='" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' Where addressId = '" + Globals.AddID + "';";
+                string Query = "Update address set address ='" + MCAddressTextbox.Text + "', cityId = '" + Globals.CtyID + "', postalCode = '" + MCZipTextbox.Text + "', phone = '" + MCPhoneButton.Text + "', lastUpdate ='" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' Where addressId = '" + Globals.AddID + "';";
                 MySqlConnection con2 = new MySqlConnection(con);
                 MySqlCommand comm = new MySqlCommand(Query, con2);
                 con2.Open();
@@ -167,22 +201,19 @@ namespace SchedulingApplication
 
                 //UPDATECUSTOMER
                 string conx = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-                string Queryx = "Update customer SET customerName = '" + MCNameTextbox.Text + "', lastUpdate ='" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' WHERE customerId = '" + Globals.CustID + "';";
+                string Queryx = "Update customer SET customerName = '" + MCNameTextbox.Text + "', lastUpdate ='" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' WHERE customerId = '" + Globals.CustID + "';";
                 //connection object and string  
                 MySqlConnection con2x = new MySqlConnection(conx);
-                //command -handle the query and connection object.  
                 MySqlCommand commx = new MySqlCommand(Queryx, con2x);
                 con2x.Open();
                 commx.ExecuteNonQuery();
                 MessageBox.Show("Data Saved");
             }
-            catch (Exception )
+            catch (Exception)
             {
                 MessageBox.Show("Could not update customer.", "Error");
             }
                             
-           
-
             this.Hide();
             Dashboard db = new Dashboard();
             db.ShowDialog();
@@ -219,25 +250,27 @@ namespace SchedulingApplication
 
         private void MCZipTextbox_TextChanged(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(MCZipTextbox.Text))
+            Regex phoneNumpattern = new Regex(@"[\d -]+");
+            if (phoneNumpattern.IsMatch(MCZipTextbox.Text))
             {
-                MCZipTextbox.BackColor = System.Drawing.Color.Red;
+                MCZipTextbox.BackColor = System.Drawing.Color.White;
             }
             else
             {
-                MCZipTextbox.BackColor = System.Drawing.Color.White;
+                MCZipTextbox.BackColor = System.Drawing.Color.Red;
             }
         }
 
         private void MCPhoneButton_TextChanged(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(MCPhoneButton.Text))
+            Regex phoneNumpattern = new Regex(@"[\d -]+");
+            if (phoneNumpattern.IsMatch(MCPhoneButton.Text))
             {
-                MCPhoneButton.BackColor = System.Drawing.Color.Red;
+                MCPhoneButton.BackColor = System.Drawing.Color.White;
             }
             else
             {
-                MCPhoneButton.BackColor = System.Drawing.Color.White;
+                MCPhoneButton.BackColor = System.Drawing.Color.Red;
             }
         }
     }

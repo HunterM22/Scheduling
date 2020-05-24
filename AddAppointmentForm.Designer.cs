@@ -38,6 +38,7 @@
             this.AASaveButton = new System.Windows.Forms.Button();
             this.AACustomerComboBox = new System.Windows.Forms.ComboBox();
             this.AAcustLabel = new System.Windows.Forms.Label();
+            this.bizhourlabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AAApptTypeLabel
@@ -65,9 +66,12 @@
             this.AAEndTimePicker.CustomFormat = "\"MM\'/\'dd\'/\'yyyy hh\':\'mm tt\"";
             this.AAEndTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.AAEndTimePicker.Location = new System.Drawing.Point(124, 181);
+            this.AAEndTimePicker.MaxDate = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
+            this.AAEndTimePicker.MinDate = new System.DateTime(2019, 2, 1, 0, 0, 0, 0);
             this.AAEndTimePicker.Name = "AAEndTimePicker";
             this.AAEndTimePicker.Size = new System.Drawing.Size(244, 22);
             this.AAEndTimePicker.TabIndex = 47;
+            this.AAEndTimePicker.Value = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
             // 
             // AAEndTimeLabel
             // 
@@ -94,9 +98,12 @@
             this.AAStartTimePicker.CustomFormat = "\"MM\'/\'dd\'/\'yyyy hh\':\'mm tt\"";
             this.AAStartTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.AAStartTimePicker.Location = new System.Drawing.Point(124, 145);
+            this.AAStartTimePicker.MaxDate = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
+            this.AAStartTimePicker.MinDate = new System.DateTime(2019, 2, 1, 0, 0, 0, 0);
             this.AAStartTimePicker.Name = "AAStartTimePicker";
             this.AAStartTimePicker.Size = new System.Drawing.Size(244, 22);
             this.AAStartTimePicker.TabIndex = 44;
+            this.AAStartTimePicker.Value = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
             this.AAStartTimePicker.ValueChanged += new System.EventHandler(this.AAStartTimePicker_ValueChanged);
             // 
             // AACancelButton
@@ -143,12 +150,24 @@
             this.AAcustLabel.TabIndex = 55;
             this.AAcustLabel.Text = "Customer";
             // 
+            // bizhourlabel
+            // 
+            this.bizhourlabel.AutoSize = true;
+            this.bizhourlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bizhourlabel.ForeColor = System.Drawing.Color.DarkRed;
+            this.bizhourlabel.Location = new System.Drawing.Point(17, 223);
+            this.bizhourlabel.Name = "bizhourlabel";
+            this.bizhourlabel.Size = new System.Drawing.Size(0, 18);
+            this.bizhourlabel.TabIndex = 56;
+            this.bizhourlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // AddAppointmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
             this.ClientSize = new System.Drawing.Size(417, 393);
+            this.Controls.Add(this.bizhourlabel);
             this.Controls.Add(this.AAcustLabel);
             this.Controls.Add(this.AACustomerComboBox);
             this.Controls.Add(this.AAApptTypeLabel);
@@ -179,5 +198,6 @@
         private System.Windows.Forms.Button AASaveButton;
         private System.Windows.Forms.ComboBox AACustomerComboBox;
         private System.Windows.Forms.Label AAcustLabel;
+        private System.Windows.Forms.Label bizhourlabel;
     }
 }

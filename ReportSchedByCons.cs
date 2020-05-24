@@ -13,6 +13,10 @@ namespace SchedulingApplication
 {
     public partial class ReportSchedByCons : Form
     {
+
+        public delegate string UserConf(int user);
+        int user = Globals.SelUser;
+
         public ReportSchedByCons()
         {
             InitializeComponent();
@@ -63,6 +67,14 @@ namespace SchedulingApplication
 
                 }
                 cmn.Close();
+
+                UserConf obj = (user) =>
+                {
+                    return "Hello " + user + "!";
+                };
+                string GreetingsMessage = obj.Invoke(user);
+                Console.WriteLine(GreetingsMessage);
+                //Lambda to shorten syntax
             }
 
             //Fill Appt Table with Selected User Appts

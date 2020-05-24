@@ -16,30 +16,32 @@ namespace SchedulingApplication
     public partial class Dashboard : Form
     {
         DateTime currentDate = new DateTime();
+
         public Dashboard()
         {
             InitializeComponent();
             dgvFormatter(DashboardCustDGV);
             dgvFormatter(DashboardApptDGV);
             Check_Appointment();
+            
 
             //Fill Appointment Table
-            DataTable dt = new DataTable();
+            DataTable xt = new DataTable();
             string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
             using (MySqlConnection cn = new MySqlConnection(connStr))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cn);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                dt.Load(reader);
-                if (dt.Rows.Count > 0)
+                xt.Load(reader);
+                if (xt.Rows.Count > 0)
                 {
-                    DashboardApptDGV.DataSource = dt;
-                    for (int idx = 0; idx < dt.Rows.Count; idx++)
+                    for (int idx = 0; idx < xt.Rows.Count; idx++)
                     {
-                        dt.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dt.Rows[idx]["start"], TimeZoneInfo.Local).ToString();
-                        dt.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dt.Rows[idx]["end"], TimeZoneInfo.Local).ToString();
-                    }   
+                        xt.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)xt.Rows[idx]["start"], TimeZoneInfo.Local).ToString();
+                        xt.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)xt.Rows[idx]["end"], TimeZoneInfo.Local).ToString();
+                    }
+                    DashboardApptDGV.DataSource = xt;
                 }
                 cn.Close();
 
@@ -71,7 +73,7 @@ namespace SchedulingApplication
             using (MySqlConnection can = new MySqlConnection(connSt))
             {
                 can.Open();
-                MySqlCommand acmd = new MySqlCommand("Select * from appointment where userId = '" + Globals.UserID + "' AND start between '" + Now.ToString("yyyy-MM-dd hh:mm:ss") + "' and '" + NowF.ToString("yyyy-MM-dd hh:mm:ss") + "'", can);
+                MySqlCommand acmd = new MySqlCommand("Select * from appointment where userId = '" + Globals.UserID + "' AND start between '" + Now.ToString("yyyy-MM-dd hh:mm:ss tt") + "' and '" + NowF.ToString("yyyy-MM-dd hh:mm:ss tt") + "'", can);
                 MySqlDataReader areader = acmd.ExecuteReader();
                 dp.Load(areader);
                 if (dp.Rows.Count > 0)
@@ -156,111 +158,125 @@ namespace SchedulingApplication
 
         private void SelectedDate(object sender, DateRangeEventArgs e)
         {
-            currentDate = e.Start;
-            if (DashMonthRadioButton.Checked)
-            {
-                handleMonth();
-            }
-            else
-            {
-                if (DashWeekRadioButton.Checked)
-                {
-                    handleWeek();
-                }
-                else
-                {
-                    handleDay();
-                }
-            }
+            
         }
 
         private void handleDay()
         {
-            monthCalendar1.RemoveAllBoldedDates();
-            monthCalendar1.AddBoldedDate(currentDate);
-            monthCalendar1.UpdateBoldedDates();
-            DataTable day = new DataTable();
-            //string dconnStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            //using (MySqlConnection dcn = new MySqlConnection(dconnStr))
-            //{
-            //    dcn.Open();
-            //    MySqlCommand dcmd = new MySqlCommand("SELECT * FROM appointment WHERE start Like '" + currentDate + "';);", dcn);                
-            //    MySqlDataReader dreader = dcmd.ExecuteReader();
-            //    day.Load(dreader);
-            //    if (day.Rows.Count > 0)
-            //    {
-            //        DashboardApptDGV.DataSource = day;
-            //    }
-            //    dcn.Close();
+            monthCalendar1.MaxSelectionCount = 1;
+            DateTime start = new DateTime();
+            DateTime end = new DateTime();
+            start = currentDate;
+            end = currentDate.AddDays(1);
+            monthCalendar1.SetSelectionRange(start, end);
 
-            //}
+            //Daily appts to DGV
+            DataTable da = new DataTable();
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection acn = new MySqlConnection(connStr))
+            {
+                acn.Open();
+                MySqlCommand cmdv = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment where start BETWEEN '" + TimeZoneInfo.ConvertTimeToUtc(start).ToString("yyyy-MM-dd hh:mm:ss tt") + "' and '" + TimeZoneInfo.ConvertTimeToUtc(end).ToString("yyyy-MM-dd hh:mm:ss tt") + "';", acn);
+                MySqlDataReader reader = cmdv.ExecuteReader();
+                da.Load(reader);
+                if (da.Rows.Count > 0)
+                {
+                    DashboardApptDGV.DataSource = da;
+                    for (int idx = 0; idx < da.Rows.Count; idx++)
+                    {
+                        da.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)da.Rows[idx]["start"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
+                        da.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)da.Rows[idx]["end"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
+                    }
+                }
+                else if (da.Rows.Count < 1)
+                {
+                    MessageBox.Show("No appointments found for the day selected.");
+                }
+                acn.Close();
+            }
 
         }
         private void handleWeek()
         {
-            monthCalendar1.RemoveAllBoldedDates();
-            int dow = (int)currentDate.DayOfWeek;
-            string startDate = currentDate.AddDays(-dow).ToString();
-            DateTime tempDate = Convert.ToDateTime(startDate);
-            for (int i = 0; i < 7; i++)
+            monthCalendar1.MaxSelectionCount = 7;
+            DateTime start = new DateTime();
+            DateTime end = new DateTime();
+            start = currentDate;
+            end = currentDate.AddDays(7);
+            monthCalendar1.SetSelectionRange(start, end);
+
+            //Weekly appts to DGV
+            DataTable dv = new DataTable();
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection cn = new MySqlConnection(connStr))                                                                                        
             {
-                monthCalendar1.AddBoldedDate(tempDate.AddDays(i));
+                cn.Open();
+                MySqlCommand cmdv = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment where start BETWEEN '"+ TimeZoneInfo.ConvertTimeToUtc(start).ToString("yyyy-MM-dd hh:mm:ss tt")+ "' and '"+ TimeZoneInfo.ConvertTimeToUtc(end).ToString("yyyy-MM-dd hh:mm:ss tt") + "';", cn);
+                MySqlDataReader reader = cmdv.ExecuteReader();
+                dv.Load(reader);
+                if (dv.Rows.Count > 0)
+                {
+                    DashboardApptDGV.DataSource = dv;
+                    for (int idx = 0; idx < dv.Rows.Count; idx++)
+                    {
+                        dv.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dv.Rows[idx]["start"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
+                        dv.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dv.Rows[idx]["end"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
+                    }
+                }
+                else if (dv.Rows.Count < 1)
+                {
+                    MessageBox.Show("No appointments found for the week selected.");
+                }
+                cn.Close();
             }
-            monthCalendar1.UpdateBoldedDates();
-            string endDate = currentDate.AddDays(7 - dow).ToString();
-            
-            //getData("SELECT * FROM myTbl WHERE DT BETWEEN CDATE('" + startDate + "') AND CDATE('" + endDate + "');");
-            //dgv.DataSource = dt;
         }
 
         private void handleMonth()
         {
-           monthCalendar1.RemoveAllBoldedDates();
-            int mo = currentDate.Month;
-            int yr = currentDate.Year;
-            int d = 0;
-            string startDate = mo.ToString() + "/01/" + yr.ToString();
-            DateTime tempDate = Convert.ToDateTime(startDate);
-            switch (mo)
-            {
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8:
-                case 10:
-                    d = 31;
-                    break;
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    d = 30;
-                    break;
-                default:
-                    d = 29;
-                    break;
-            }
-            for (int i = 0; i < d; i++)
-            {
-                monthCalendar1.AddBoldedDate(tempDate.AddDays(i));
-            }
-            monthCalendar1.UpdateBoldedDates();
-            string endDate = mo.ToString() + "/" + d.ToString() + "/" + yr.ToString();
-            //getData("SELECT * FROM myTbl WHERE DT BETWEEN CDATE('" + startDate + "') AND CDATE('" + endDate + "');");
-            //dgv.DataSource = dt;
-        }
+            monthCalendar1.MaxSelectionCount = 31;
+            DateTime Mstart = new DateTime();
+            DateTime Mend = new DateTime();
+            Mstart = currentDate;
+            Mend = currentDate.AddDays(31);
+            monthCalendar1.SetSelectionRange(Mstart, Mend);
 
+            //Monthly appts to DGV
+            DataTable dh = new DataTable();
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection hcn = new MySqlConnection(connStr))
+            {
+                hcn.Open();
+                MySqlCommand cmdv = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment where start BETWEEN '" + TimeZoneInfo.ConvertTimeToUtc(Mstart).ToString("yyyy-MM-dd hh:mm:ss tt") + "' and '" + TimeZoneInfo.ConvertTimeToUtc(Mend).ToString("yyyy-MM-dd hh:mm:ss tt") + "';", hcn);
+                MySqlDataReader reader = cmdv.ExecuteReader();
+                dh.Load(reader);
+                if (dh.Rows.Count > 0)
+                {
+                    DashboardApptDGV.DataSource = dh;
+                    for (int idx = 0; idx < dh.Rows.Count; idx++)
+                    {
+                        dh.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dh.Rows[idx]["start"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
+                        dh.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dh.Rows[idx]["end"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
+                    }
+                }
+                else if (dh.Rows.Count < 1)
+                {
+                    MessageBox.Show("No appointments found for the month selected.");
+                }
+                hcn.Close();
+            }
+
+        }
 
 
         private void DashMonthRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            handleMonth();
+            //handleMonth();
         }
 
         public void DashWeekRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            handleWeek();
+
+            //handleWeek();
 
         }
 
@@ -402,7 +418,7 @@ namespace SchedulingApplication
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
         {
-            currentDate = e.Start;
+           
         }
 
         private void DashboardCustDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -413,21 +429,51 @@ namespace SchedulingApplication
         private void monthCalendar1_DateSelected(object sender, DateRangeEventArgs e)
         {
             currentDate = e.Start;
+            if (DashMonthRadioButton.Checked)
+            {
+                handleMonth();
+            }
+            else
+            {
+                if (DashWeekRadioButton.Checked)
+                {
+                    handleWeek();
+                }
+                else
+                {
+                    handleDay();
+                }
+            }
         }
 
         private void ActiveUserReport_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            ReportActiveUserList rpt = new ReportActiveUserList();
-            rpt.ShowDialog();
+            //this.Hide();
+            //ReportActiveUserList rpt = new ReportActiveUserList();
+            //rpt.ShowDialog();
         }
 
         private void SchedByConsReportButton_Click(object sender, EventArgs e)
+        {
+            //this.Hide();
+            //ReportSchedByCons sched = new ReportSchedByCons();
+            //sched.ShowDialog();
+
+        }
+
+        private void SchedByConsReportButton_Click_1(object sender, EventArgs e)
         {
             this.Hide();
             ReportSchedByCons sched = new ReportSchedByCons();
             sched.ShowDialog();
 
+        }
+
+        private void RepActiveUserButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ReportActiveUserList rpt = new ReportActiveUserList();
+            rpt.ShowDialog();
         }
     }
 }

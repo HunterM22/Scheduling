@@ -40,7 +40,7 @@ namespace SchedulingApplication
             }
 
         }
-           
+        
         private void AddAppointmentForm_Load(object sender, EventArgs e)
         {
            
@@ -53,41 +53,96 @@ namespace SchedulingApplication
             db.ShowDialog();
         }
 
+        private bool BizHourCheck()
+        {
+            var beginBusinessHours = new TimeSpan(8, 0, 0);
+            var endBusinessHours = new TimeSpan(17, 0, 0);
+            var appointmentBeginTime = AAStartTimePicker.Value.TimeOfDay;
+            var appointmentEndTime = AAEndTimePicker.Value.TimeOfDay;
+
+            if (appointmentBeginTime < beginBusinessHours || appointmentEndTime > endBusinessHours)
+            {
+                bizhourlabel.Text = "Appointment must be between 8am and 5pm.";
+                return false;
+            }
+
+            return true;
+        }
+
         private void AASaveButton_Click(object sender, EventArgs e)
         {
-            DateTime STime = new DateTime();
-            //STime = AAStartTimePicker.Value.ToString();
-            //if 
-            try
+            if (!BizHourCheck())
             {
-                //con string
-                string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+                bizhourlabel.Visible = true;
+                return;
+            }
 
-                //insert qry 
-                string Query = "insert into appointment(customerId,userId,type,start,end,createDate,createdBy)     " +
-                    "values('" + Globals.CustComboID + "','" + Globals.UserID + "','" + Globals.ApptTypeCombo + "','" + AAStartTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "','" + AAEndTimePicker.Value.ToString("yyyy-MM-dd hh:mm:ss") + "','" +  DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.CurrUserName + "');";
-                //connection object and string  
-                MySqlConnection con2 = new MySqlConnection(con);
-                //command -handle the query and connection object.  
-                MySqlCommand comm = new MySqlCommand(Query, con2);
-                MySqlDataReader rdr;
-                con2.Open();
-                rdr = comm.ExecuteReader();
-                MessageBox.Show("Data Saved");
-                while (rdr.Read())
+            //Get Appt List
+            DateTime AStart = new DateTime();
+            DateTime AEnd = new DateTime();
+
+            AStart = TimeZoneInfo.ConvertTimeToUtc(AAStartTimePicker.Value);
+            AEnd = TimeZoneInfo.ConvertTimeToUtc(AAEndTimePicker.Value);
+
+            DataTable dt = new DataTable();
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection cn = new MySqlConnection(connStr))
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                dt.Load(reader);
+                if (dt.Rows.Count > 0)
                 {
-                }
-                con2.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Could not add appointment.", "Error");
-            }
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DateTime bStart = Convert.ToDateTime(dt.Rows[i]["start"]);
+                        DateTime bEnd = Convert.ToDateTime(dt.Rows[i]["end"]);
+                        if (AStart < bEnd && bStart < AEnd)
+                        {
+                            MessageBox.Show("Scheduling Conflict: Overlapping meeting times. Please Try Again.");
+                            return;
+                            
+                            
+                        }
+                        cn.Close();
 
-            this.Hide();
-            Dashboard db = new Dashboard();
-            db.ShowDialog();
+                        try
+                        {
+                            //con string
+                            string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+
+                            //insert qry 
+                            string Query = "insert into appointment(customerId,userId,type,start,end,createDate,createdBy)     " +
+                                "values('" + Globals.CustComboID + "','" + Globals.UserID + "','" + Globals.ApptTypeCombo + "','" + TimeZoneInfo.ConvertTimeToUtc(AAStartTimePicker.Value).ToString("yyyy-MM-dd hh:mm:ss") + "','" + TimeZoneInfo.ConvertTimeToUtc(AAEndTimePicker.Value).ToString("yyyy-MM-dd hh:mm:ss") + "','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.CurrUserName + "');";
+                            //connection object and string  
+                            MySqlConnection con2 = new MySqlConnection(con);
+                            //command -handle the query and connection object.  
+                            MySqlCommand comm = new MySqlCommand(Query, con2);
+                            MySqlDataReader rdr;
+                            con2.Open();
+                            rdr = comm.ExecuteReader();
+                            MessageBox.Show("Data Saved");
+                            while (rdr.Read())
+                            {
+                            }
+                            con2.Close();
+                            return;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Could not add appointment.", "Error");
+                            return;
+                        }
+
+                        this.Hide();
+                        Dashboard db = new Dashboard();
+                        db.ShowDialog();
+                    }
+                }
+            }
         }
+
 
         private void AACustomerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
