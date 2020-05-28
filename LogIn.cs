@@ -22,7 +22,7 @@ namespace SchedulingApplication
         public LogIn()
         {
             InitializeComponent();
-                                
+                                   
 
             CultureInfo mx = CultureInfo.CurrentCulture;
 
@@ -66,7 +66,7 @@ namespace SchedulingApplication
             }
             else
             {
-                GreetingsDelegate obj = (name) => 
+                GreetingsDelegate obj = (name) =>
                 {
                     return "Hello " + name + "!";
                 };
@@ -80,7 +80,7 @@ namespace SchedulingApplication
             }
             mcon.Close();
 
-            //Log File////////////////////////////////////////////////////////////////
+            //Log File//
             try
             {
                 using (StreamWriter writer = new StreamWriter("log.txt", true))
@@ -90,11 +90,38 @@ namespace SchedulingApplication
             }
             catch (Exception)
             {
-                Console.WriteLine("The file could not be read:");                
+                Console.WriteLine("The file could not be read:");
             }
+
+            Check_Appointment();
+
+
+
         }
 
-            private void LogInExitButton_Click(object sender, EventArgs e)
+        public void Check_Appointment()
+        {
+            DateTime Now = Convert.ToDateTime(DateTime.UtcNow);
+            DateTime NowF = Convert.ToDateTime(DateTime.UtcNow).AddMinutes(15);
+            DataTable dp = new DataTable();
+            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection can = new MySqlConnection(connSt))
+            {
+                can.Open();
+                MySqlCommand acmd = new MySqlCommand("Select * from appointment where userId = '" + Globals.UserID + "' AND start between '" + Now.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + NowF.ToString("yyyy-MM-dd HH:mm:ss") + "'", can);
+                MySqlDataReader areader = acmd.ExecuteReader();
+                dp.Load(areader);
+                if (dp.Rows.Count > 0)
+                {
+                    MessageBox.Show("You have an appointment within the next 15 minutes.", "Alert!");
+                }
+                can.Close();
+            }
+
+        }
+
+
+        private void LogInExitButton_Click(object sender, EventArgs e)
         {
             this.Close();
 

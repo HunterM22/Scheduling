@@ -55,8 +55,8 @@
             this.MAStartTimePicker.CustomFormat = "\"MM\'/\'dd\'/\'yyyy hh\':\'mm tt\"";
             this.MAStartTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.MAStartTimePicker.Location = new System.Drawing.Point(138, 107);
-            this.MAStartTimePicker.MaxDate = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
-            this.MAStartTimePicker.MinDate = new System.DateTime(2019, 2, 1, 0, 0, 0, 0);
+            this.MAStartTimePicker.MaxDate = new System.DateTime(2100, 1, 1, 0, 0, 0, 0);
+            this.MAStartTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.MAStartTimePicker.Name = "MAStartTimePicker";
             this.MAStartTimePicker.Size = new System.Drawing.Size(244, 22);
             this.MAStartTimePicker.TabIndex = 28;
@@ -87,8 +87,8 @@
             this.MAEndTimePicker.CustomFormat = "\"MM\'/\'dd\'/\'yyyy hh\':\'mm tt\"";
             this.MAEndTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.MAEndTimePicker.Location = new System.Drawing.Point(138, 143);
-            this.MAEndTimePicker.MaxDate = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
-            this.MAEndTimePicker.MinDate = new System.DateTime(2019, 2, 1, 0, 0, 0, 0);
+            this.MAEndTimePicker.MaxDate = new System.DateTime(2100, 1, 1, 0, 0, 0, 0);
+            this.MAEndTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.MAEndTimePicker.Name = "MAEndTimePicker";
             this.MAEndTimePicker.Size = new System.Drawing.Size(244, 22);
             this.MAEndTimePicker.TabIndex = 31;

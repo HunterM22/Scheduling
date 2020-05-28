@@ -20,25 +20,6 @@ namespace SchedulingApplication
             AATypeCombobox.Items.Add("Scrum");
             AATypeCombobox.Items.Add("Presentation");
 
-            //Fill customer combo box
-            DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection con = new MySqlConnection(connStrg))
-            {
-                con.Open();
-                MySqlCommand cmmd = new MySqlCommand("select * from customer", con);
-                MySqlDataReader creader = cmmd.ExecuteReader();
-                ct.Load(creader);
-
-                if (ct.Rows.Count > 0)
-                {
-                    AACustomerComboBox.DataSource = ct;
-                    AACustomerComboBox.DisplayMember = "customerName";
-                }
-                con.Close();
-
-            }
-
         }
         
         private void AddAppointmentForm_Load(object sender, EventArgs e)
@@ -102,46 +83,48 @@ namespace SchedulingApplication
                         {
                             MessageBox.Show("Scheduling Conflict: Overlapping meeting times. Please Try Again.");
                             return;
-                            
-                            
+
+
                         }
                         cn.Close();
-
-                        try
-                        {
-                            //con string
-                            string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-
-                            //insert qry 
-                            string Query = "insert into appointment(customerId,userId,type,start,end,createDate,createdBy)     " +
-                                "values('" + Globals.CustComboID + "','" + Globals.UserID + "','" + Globals.ApptTypeCombo + "','" + TimeZoneInfo.ConvertTimeToUtc(AAStartTimePicker.Value).ToString("yyyy-MM-dd hh:mm:ss") + "','" + TimeZoneInfo.ConvertTimeToUtc(AAEndTimePicker.Value).ToString("yyyy-MM-dd hh:mm:ss") + "','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.CurrUserName + "');";
-                            //connection object and string  
-                            MySqlConnection con2 = new MySqlConnection(con);
-                            //command -handle the query and connection object.  
-                            MySqlCommand comm = new MySqlCommand(Query, con2);
-                            MySqlDataReader rdr;
-                            con2.Open();
-                            rdr = comm.ExecuteReader();
-                            MessageBox.Show("Data Saved");
-                            while (rdr.Read())
-                            {
-                            }
-                            con2.Close();
-                            return;
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Could not add appointment.", "Error");
-                            return;
-                        }
-
-                        this.Hide();
-                        Dashboard db = new Dashboard();
-                        db.ShowDialog();
                     }
                 }
+
+                try
+                {
+                    //con string
+                    string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+
+                    //insert qry 
+                    string Query = "insert into appointment(customerId,userId,type,start,end,createDate,createdBy)     " +
+                        "values('" + Globals.CustComboID + "','" + Globals.UserID + "','" + Globals.ApptTypeCombo + "','" + TimeZoneInfo.ConvertTimeToUtc(AAStartTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "','" + TimeZoneInfo.ConvertTimeToUtc(AAEndTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Globals.CurrUserName + "');";
+                    //connection object and string                                                                                                                                        
+                    MySqlConnection con2 = new MySqlConnection(con);
+                    //command -handle the query and connection object.  
+                    MySqlCommand comm = new MySqlCommand(Query, con2);
+                    MySqlDataReader rdr;
+                    con2.Open();
+                    rdr = comm.ExecuteReader();
+                    MessageBox.Show("Data Saved");
+                    while (rdr.Read())
+                    {
+                    }
+                    con2.Close();
+                    
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Could not add appointment.", "Error");
+                    return;
+                }
+
             }
+
+            this.Hide();
+            Dashboard db = new Dashboard();
+            db.ShowDialog();
         }
+    
 
 
         private void AACustomerComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -149,11 +132,27 @@ namespace SchedulingApplication
            
         }
 
-
-
         private void AACustomerComboBox_Click(object sender, EventArgs e)
         {
-            
+            //Fill customer combo box
+            DataTable ct = new DataTable();
+            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection con = new MySqlConnection(connStrg))
+            {
+                con.Open();
+                MySqlCommand cmmd = new MySqlCommand("select * from customer", con);
+                MySqlDataReader creader = cmmd.ExecuteReader();
+                ct.Load(creader);
+
+                if (ct.Rows.Count > 0)
+                {
+                    AACustomerComboBox.DataSource = ct;
+                    AACustomerComboBox.DisplayMember = "customerName";
+                }
+                con.Close();
+
+            }
+
         }
 
         private void AAStartTimePicker_ValueChanged(object sender, EventArgs e)

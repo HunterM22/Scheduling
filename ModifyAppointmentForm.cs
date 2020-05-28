@@ -59,7 +59,7 @@ namespace SchedulingApplication
         private bool BizHourCheck()
         {
             var beginBusinessHours = new TimeSpan(8, 0, 0);
-            var endBusinessHours = new TimeSpan(17, 1, 1);
+            var endBusinessHours = new TimeSpan(17, 1, 0);
             var appointmentBeginTime = MAStartTimePicker.Value.TimeOfDay;
             var appointmentEndTime = MAEndTimePicker.Value.TimeOfDay;
 
@@ -119,7 +119,7 @@ namespace SchedulingApplication
                     string Connection = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                     MySqlConnection Conn = new MySqlConnection(Connection);
                     //query
-                    string Query = "Update appointment Set type = '" + type + "', start = '" + TimeZoneInfo.ConvertTimeToUtc(MAStartTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', end = '" + TimeZoneInfo.ConvertTimeToUtc(MAEndTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', lastUpdate = '" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss tt") + "', lastUpdateBy = '" + Globals.CurrUserName + "' WHERE appointmentId = '" + Globals.ApptId + "';";
+                    string Query = "Update appointment Set type = '" + type + "', start = '" + TimeZoneInfo.ConvertTimeToUtc(MAStartTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', end = '" + TimeZoneInfo.ConvertTimeToUtc(MAEndTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', lastUpdate = '" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', lastUpdateBy = '" + Globals.CurrUserName + "' WHERE appointmentId = '" + Globals.ApptId + "';";
                     MySqlCommand comm = new MySqlCommand(Query, Conn);
                     Conn.Open();
                     comm.ExecuteNonQuery();

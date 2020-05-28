@@ -20,10 +20,10 @@ namespace SchedulingApplication
         public Dashboard()
         {
             InitializeComponent();
+         
             dgvFormatter(DashboardCustDGV);
             dgvFormatter(DashboardApptDGV);
-            Check_Appointment();
-            
+                      
 
             //Fill Appointment Table
             DataTable xt = new DataTable();
@@ -64,25 +64,25 @@ namespace SchedulingApplication
 
             }
         }
-        public void Check_Appointment()
-        {
-            DateTime Now = DateTime.UtcNow;
-            DateTime NowF = DateTime.UtcNow.AddMinutes(15);
-            DataTable dp = new DataTable();
-            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection can = new MySqlConnection(connSt))
-            {
-                can.Open();
-                MySqlCommand acmd = new MySqlCommand("Select * from appointment where userId = '" + Globals.UserID + "' AND start between '" + Now.ToString("yyyy-MM-dd hh:mm:ss tt") + "' and '" + NowF.ToString("yyyy-MM-dd hh:mm:ss tt") + "'", can);
-                MySqlDataReader areader = acmd.ExecuteReader();
-                dp.Load(areader);
-                if (dp.Rows.Count > 0)
-                {
-                    MessageBox.Show("You have an appointment within the next 15 minutes.", "Alert!");
-                }
-                can.Close();
-            }
-        }
+        //public void Check_Appointment()
+        //{
+        //    DateTime Now = Convert.ToDateTime(DateTime.UtcNow);
+        //    DateTime NowF = Convert.ToDateTime(DateTime.UtcNow).AddMinutes(15);
+        //    DataTable dp = new DataTable();
+        //    string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+        //    using (MySqlConnection can = new MySqlConnection(connSt))
+        //    {
+        //        can.Open();
+        //        MySqlCommand acmd = new MySqlCommand("Select * from appointment where userId = '" + Globals.UserID + "' AND start between '" + Now.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + NowF.ToString("yyyy-MM-dd HH:mm:ss") + "'", can);
+        //        MySqlDataReader areader = acmd.ExecuteReader();
+        //        dp.Load(areader);
+        //        if (dp.Rows.Count > 0)
+        //        {
+        //            MessageBox.Show("You have an appointment within the next 15 minutes.", "Alert!");
+        //        }
+        //        can.Close();
+        //    }
+        //}
 
 
 
@@ -176,7 +176,7 @@ namespace SchedulingApplication
             using (MySqlConnection acn = new MySqlConnection(connStr))
             {
                 acn.Open();
-                MySqlCommand cmdv = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment where start BETWEEN '" + TimeZoneInfo.ConvertTimeToUtc(start).ToString("yyyy-MM-dd hh:mm:ss tt") + "' and '" + TimeZoneInfo.ConvertTimeToUtc(end).ToString("yyyy-MM-dd hh:mm:ss tt") + "';", acn);
+                MySqlCommand cmdv = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment where start BETWEEN '" + TimeZoneInfo.ConvertTimeToUtc(start).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + TimeZoneInfo.ConvertTimeToUtc(end).ToString("yyyy-MM-dd HH:mm:ss") + "';", acn);
                 MySqlDataReader reader = cmdv.ExecuteReader();
                 da.Load(reader);
                 if (da.Rows.Count > 0)
@@ -184,8 +184,8 @@ namespace SchedulingApplication
                     DashboardApptDGV.DataSource = da;
                     for (int idx = 0; idx < da.Rows.Count; idx++)
                     {
-                        da.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)da.Rows[idx]["start"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
-                        da.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)da.Rows[idx]["end"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
+                        da.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)da.Rows[idx]["start"], TimeZoneInfo.Local).ToString("yyyy-MM-dd HH:mm:ss");
+                        da.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)da.Rows[idx]["end"], TimeZoneInfo.Local).ToString("yyyy-MM-dd HH:mm:ss");
                     }
                 }
                 else if (da.Rows.Count < 1)
@@ -211,7 +211,7 @@ namespace SchedulingApplication
             using (MySqlConnection cn = new MySqlConnection(connStr))                                                                                        
             {
                 cn.Open();
-                MySqlCommand cmdv = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment where start BETWEEN '"+ TimeZoneInfo.ConvertTimeToUtc(start).ToString("yyyy-MM-dd hh:mm:ss tt")+ "' and '"+ TimeZoneInfo.ConvertTimeToUtc(end).ToString("yyyy-MM-dd hh:mm:ss tt") + "';", cn);
+                MySqlCommand cmdv = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment where start BETWEEN '"+ TimeZoneInfo.ConvertTimeToUtc(start).ToString("yyyy-MM-dd HH:mm:ss")+ "' and '"+ TimeZoneInfo.ConvertTimeToUtc(end).ToString("yyyy-MM-dd HH:mm:ss") + "';", cn);
                 MySqlDataReader reader = cmdv.ExecuteReader();
                 dv.Load(reader);
                 if (dv.Rows.Count > 0)
@@ -219,8 +219,8 @@ namespace SchedulingApplication
                     DashboardApptDGV.DataSource = dv;
                     for (int idx = 0; idx < dv.Rows.Count; idx++)
                     {
-                        dv.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dv.Rows[idx]["start"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
-                        dv.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dv.Rows[idx]["end"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
+                        dv.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dv.Rows[idx]["start"], TimeZoneInfo.Local).ToString("yyyy-MM-dd HH:mm:ss");
+                        dv.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dv.Rows[idx]["end"], TimeZoneInfo.Local).ToString("yyyy-MM-dd HH:mm:ss");
                     }
                 }
                 else if (dv.Rows.Count < 1)
@@ -246,7 +246,7 @@ namespace SchedulingApplication
             using (MySqlConnection hcn = new MySqlConnection(connStr))
             {
                 hcn.Open();
-                MySqlCommand cmdv = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment where start BETWEEN '" + TimeZoneInfo.ConvertTimeToUtc(Mstart).ToString("yyyy-MM-dd hh:mm:ss tt") + "' and '" + TimeZoneInfo.ConvertTimeToUtc(Mend).ToString("yyyy-MM-dd hh:mm:ss tt") + "';", hcn);
+                MySqlCommand cmdv = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment where start BETWEEN '" + TimeZoneInfo.ConvertTimeToUtc(Mstart).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + TimeZoneInfo.ConvertTimeToUtc(Mend).ToString("yyyy-MM-dd HH:mm:ss") + "';", hcn);
                 MySqlDataReader reader = cmdv.ExecuteReader();
                 dh.Load(reader);
                 if (dh.Rows.Count > 0)
@@ -254,8 +254,8 @@ namespace SchedulingApplication
                     DashboardApptDGV.DataSource = dh;
                     for (int idx = 0; idx < dh.Rows.Count; idx++)
                     {
-                        dh.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dh.Rows[idx]["start"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
-                        dh.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dh.Rows[idx]["end"], TimeZoneInfo.Local).ToString("yyyy-MM-dd hh:mm:ss tt");
+                        dh.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dh.Rows[idx]["start"], TimeZoneInfo.Local).ToString("yyyy-MM-dd HH:mm:ss");
+                        dh.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)dh.Rows[idx]["end"], TimeZoneInfo.Local).ToString("yyyy-MM-dd HH:mm:ss");
                     }
                 }
                 else if (dh.Rows.Count < 1)

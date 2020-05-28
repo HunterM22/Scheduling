@@ -66,8 +66,8 @@
             this.AAEndTimePicker.CustomFormat = "\"MM\'/\'dd\'/\'yyyy hh\':\'mm tt\"";
             this.AAEndTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.AAEndTimePicker.Location = new System.Drawing.Point(124, 181);
-            this.AAEndTimePicker.MaxDate = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
-            this.AAEndTimePicker.MinDate = new System.DateTime(2019, 2, 1, 0, 0, 0, 0);
+            this.AAEndTimePicker.MaxDate = new System.DateTime(2100, 1, 1, 0, 0, 0, 0);
+            this.AAEndTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.AAEndTimePicker.Name = "AAEndTimePicker";
             this.AAEndTimePicker.Size = new System.Drawing.Size(244, 22);
             this.AAEndTimePicker.TabIndex = 47;
@@ -98,8 +98,8 @@
             this.AAStartTimePicker.CustomFormat = "\"MM\'/\'dd\'/\'yyyy hh\':\'mm tt\"";
             this.AAStartTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.AAStartTimePicker.Location = new System.Drawing.Point(124, 145);
-            this.AAStartTimePicker.MaxDate = new System.DateTime(2019, 4, 30, 0, 0, 0, 0);
-            this.AAStartTimePicker.MinDate = new System.DateTime(2019, 2, 1, 0, 0, 0, 0);
+            this.AAStartTimePicker.MaxDate = new System.DateTime(2100, 1, 1, 0, 0, 0, 0);
+            this.AAStartTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.AAStartTimePicker.Name = "AAStartTimePicker";
             this.AAStartTimePicker.Size = new System.Drawing.Size(244, 22);
             this.AAStartTimePicker.TabIndex = 44;

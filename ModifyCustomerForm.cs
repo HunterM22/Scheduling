@@ -192,7 +192,7 @@ namespace SchedulingApplication
             {
                 //UPDATE ADDRESS/CITY/COUNTRY
                 string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-                string Query = "Update address set address ='" + MCAddressTextbox.Text + "', cityId = '" + Globals.CtyID + "', postalCode = '" + MCZipTextbox.Text + "', phone = '" + MCPhoneButton.Text + "', lastUpdate ='" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' Where addressId = '" + Globals.AddID + "';";
+                string Query = "Update address set address ='" + MCAddressTextbox.Text + "', cityId = '" + Globals.CtyID + "', postalCode = '" + MCZipTextbox.Text + "', phone = '" + MCPhoneButton.Text + "', lastUpdate ='" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' Where addressId = '" + Globals.AddID + "';";
                 MySqlConnection con2 = new MySqlConnection(con);
                 MySqlCommand comm = new MySqlCommand(Query, con2);
                 con2.Open();
@@ -201,7 +201,7 @@ namespace SchedulingApplication
 
                 //UPDATECUSTOMER
                 string conx = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-                string Queryx = "Update customer SET customerName = '" + MCNameTextbox.Text + "', lastUpdate ='" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' WHERE customerId = '" + Globals.CustID + "';";
+                string Queryx = "Update customer SET customerName = '" + MCNameTextbox.Text + "', lastUpdate ='" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' WHERE customerId = '" + Globals.CustID + "';";
                 //connection object and string  
                 MySqlConnection con2x = new MySqlConnection(conx);
                 MySqlCommand commx = new MySqlCommand(Queryx, con2x);

@@ -54,9 +54,9 @@
             // monthCalendar1
             // 
             this.monthCalendar1.Location = new System.Drawing.Point(71, 151);
-            this.monthCalendar1.MaxDate = new System.DateTime(2019, 6, 30, 0, 0, 0, 0);
+            this.monthCalendar1.MaxDate = new System.DateTime(2100, 1, 1, 0, 0, 0, 0);
             this.monthCalendar1.MaxSelectionCount = 31;
-            this.monthCalendar1.MinDate = new System.DateTime(2019, 2, 1, 0, 0, 0, 0);
+            this.monthCalendar1.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.ShowToday = false;
             this.monthCalendar1.ShowTodayCircle = false;

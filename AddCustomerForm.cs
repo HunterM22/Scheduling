@@ -96,7 +96,7 @@ namespace SchedulingApplication
                     //insert ADDRESS/CITY/COUNTRY
                     string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                     string Query = "Insert into address(address,cityId,postalCode,phone,createDate,createdBy) " +
-                        "Values('" + ACAddressTextbox.Text + "','" + Globals.CtyID + "','" + ACZipTextbox.Text + "','" + ACPhoneTextBox.Text + "','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.CurrUserName + "');";
+                        "Values('" + ACAddressTextbox.Text + "','" + Globals.CtyID + "','" + ACZipTextbox.Text + "','" + ACPhoneTextBox.Text + "','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Globals.CurrUserName + "');";
                     MySqlConnection con2 = new MySqlConnection(con);
                     MySqlCommand comm = new MySqlCommand(Query, con2);
                     MySqlDataReader rdr;
@@ -126,7 +126,7 @@ namespace SchedulingApplication
                     //con string
                     string conx = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                     string Queryx = "Insert into customer(customerName,addressId,active,createDate,createdBy)" +
-                        "Values('" + ACNameTextbox.Text + "','" + Globals.AddID + "','1','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "','" + Globals.CurrUserName + "');";
+                        "Values('" + ACNameTextbox.Text + "','" + Globals.AddID + "','1','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Globals.CurrUserName + "');";
                     //connection object and string  
                     MySqlConnection con2x = new MySqlConnection(conx);
                     //command -handle the query and connection object.  
