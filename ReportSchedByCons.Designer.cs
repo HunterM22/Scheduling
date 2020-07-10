@@ -43,6 +43,7 @@
             this.UserCB.Name = "UserCB";
             this.UserCB.Size = new System.Drawing.Size(172, 24);
             this.UserCB.TabIndex = 0;
+            this.UserCB.SelectedIndexChanged += new System.EventHandler(this.UserCB_SelectedIndexChanged);
             this.UserCB.DropDownClosed += new System.EventHandler(this.UserCB_DropDownClosed);
             this.UserCB.Click += new System.EventHandler(this.UserCB_Click);
             // 

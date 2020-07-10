@@ -29,7 +29,9 @@ namespace SchedulingApplication
         public static int ApptId { get; set; }
         public static int CustID {get; set;}
         public static DateTime SelDate { get; set; }
-        
+
+        public static string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+
 
 
 

@@ -121,5 +121,10 @@ namespace SchedulingApplication
 
             }
         }
+
+        private void UserCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

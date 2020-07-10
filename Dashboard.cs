@@ -475,5 +475,102 @@ namespace SchedulingApplication
             ReportActiveUserList rpt = new ReportActiveUserList();
             rpt.ShowDialog();
         }
+
+        private void ApptSearchButton_Click(object sender, EventArgs e)
+        {
+            string ad = ApptSearchBox.Text;
+
+            DataTable za = new DataTable();
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection cn = new MySqlConnection(connStr))
+            {
+                cn.Open();
+                MySqlCommand cmmd = new MySqlCommand("SELECT appointmentId, customerId, type, start, end FROM appointment where appointmentId = '" + ad + "'", cn);
+                MySqlDataReader rder = cmmd.ExecuteReader();
+                za.Load(rder);
+
+                if (za.Rows.Count > 0)
+                {
+                    DashboardApptDGV.DataSource = za;
+                }
+                cn.Close();
+            }
+
+        }
+
+        private void CustSearchButton_Click(object sender, EventArgs e)
+        {
+            string tb = CustSearchBox.Text;
+
+            DataTable zt = new DataTable();
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection cn = new MySqlConnection(connStr))
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT customerId, customerName, lastUpdateBy FROM customer where customerId = '" + tb + "'", cn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                zt.Load(reader);
+
+                if (zt.Rows.Count > 0)
+                {
+                    DashboardCustDGV.DataSource = zt;
+                }
+                cn.Close();
+            }
+
+        }
+
+        private void ApptSearchBox_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void ClearApptsButton_Click(object sender, EventArgs e)
+        {
+            DataTable xt = new DataTable();
+            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection cn = new MySqlConnection(connStr))
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                xt.Load(reader);
+                if (xt.Rows.Count > 0)
+                {
+                    for (int idx = 0; idx < xt.Rows.Count; idx++)
+                    {
+                        xt.Rows[idx]["start"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)xt.Rows[idx]["start"], TimeZoneInfo.Local).ToString();
+                        xt.Rows[idx]["end"] = TimeZoneInfo.ConvertTimeFromUtc((DateTime)xt.Rows[idx]["end"], TimeZoneInfo.Local).ToString();
+                    }
+                    DashboardApptDGV.DataSource = xt;
+                }
+                cn.Close();
+
+                ApptSearchBox.Text = "";
+            }
+
+        }
+
+        private void ClearCustButton_Click(object sender, EventArgs e)
+        {
+            DataTable ct = new DataTable();
+            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
+            using (MySqlConnection con = new MySqlConnection(connStrg))
+            {
+                con.Open();
+                MySqlCommand cmmd = new MySqlCommand("select customerId, customerName, lastUpdate from customer", con);
+                MySqlDataReader creader = cmmd.ExecuteReader();
+                ct.Load(creader);
+
+                if (ct.Rows.Count > 0)
+                {
+                    DashboardCustDGV.DataSource = ct;
+                }
+                con.Close();
+
+                CustSearchBox.Text = "";
+
+            }
+        }
     }
 }

@@ -47,6 +47,12 @@
             this.SchedByConsReportButton = new System.Windows.Forms.Button();
             this.RepActiveUserButton = new System.Windows.Forms.Button();
             this.DayRadio = new System.Windows.Forms.RadioButton();
+            this.ApptSearchBox = new System.Windows.Forms.TextBox();
+            this.CustSearchBox = new System.Windows.Forms.TextBox();
+            this.ApptSearchButton = new System.Windows.Forms.Button();
+            this.CustSearchButton = new System.Windows.Forms.Button();
+            this.ClearApptsButton = new System.Windows.Forms.Button();
+            this.ClearCustButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DashboardApptDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DashboardCustDGV)).BeginInit();
             this.SuspendLayout();
@@ -281,12 +287,73 @@
             this.DayRadio.Text = "Day";
             this.DayRadio.UseVisualStyleBackColor = true;
             // 
+            // ApptSearchBox
+            // 
+            this.ApptSearchBox.Location = new System.Drawing.Point(615, 45);
+            this.ApptSearchBox.Name = "ApptSearchBox";
+            this.ApptSearchBox.Size = new System.Drawing.Size(176, 22);
+            this.ApptSearchBox.TabIndex = 20;
+            this.ApptSearchBox.TextChanged += new System.EventHandler(this.ApptSearchBox_TextChanged);
+            // 
+            // CustSearchBox
+            // 
+            this.CustSearchBox.Location = new System.Drawing.Point(615, 371);
+            this.CustSearchBox.Name = "CustSearchBox";
+            this.CustSearchBox.Size = new System.Drawing.Size(176, 22);
+            this.CustSearchBox.TabIndex = 21;
+            // 
+            // ApptSearchButton
+            // 
+            this.ApptSearchButton.Location = new System.Drawing.Point(797, 41);
+            this.ApptSearchButton.Name = "ApptSearchButton";
+            this.ApptSearchButton.Size = new System.Drawing.Size(166, 30);
+            this.ApptSearchButton.TabIndex = 22;
+            this.ApptSearchButton.Text = "Search AppointmentId";
+            this.ApptSearchButton.UseVisualStyleBackColor = true;
+            this.ApptSearchButton.Click += new System.EventHandler(this.ApptSearchButton_Click);
+            // 
+            // CustSearchButton
+            // 
+            this.CustSearchButton.Location = new System.Drawing.Point(797, 367);
+            this.CustSearchButton.Name = "CustSearchButton";
+            this.CustSearchButton.Size = new System.Drawing.Size(166, 30);
+            this.CustSearchButton.TabIndex = 23;
+            this.CustSearchButton.Text = "Search CustomerId";
+            this.CustSearchButton.UseVisualStyleBackColor = true;
+            this.CustSearchButton.Click += new System.EventHandler(this.CustSearchButton_Click);
+            // 
+            // ClearApptsButton
+            // 
+            this.ClearApptsButton.Location = new System.Drawing.Point(969, 41);
+            this.ClearApptsButton.Name = "ClearApptsButton";
+            this.ClearApptsButton.Size = new System.Drawing.Size(61, 30);
+            this.ClearApptsButton.TabIndex = 24;
+            this.ClearApptsButton.Text = "Clear";
+            this.ClearApptsButton.UseVisualStyleBackColor = true;
+            this.ClearApptsButton.Click += new System.EventHandler(this.ClearApptsButton_Click);
+            // 
+            // ClearCustButton
+            // 
+            this.ClearCustButton.Location = new System.Drawing.Point(969, 367);
+            this.ClearCustButton.Name = "ClearCustButton";
+            this.ClearCustButton.Size = new System.Drawing.Size(61, 30);
+            this.ClearCustButton.TabIndex = 25;
+            this.ClearCustButton.Text = "Clear";
+            this.ClearCustButton.UseVisualStyleBackColor = true;
+            this.ClearCustButton.Click += new System.EventHandler(this.ClearCustButton_Click);
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
             this.ClientSize = new System.Drawing.Size(1066, 675);
+            this.Controls.Add(this.ClearCustButton);
+            this.Controls.Add(this.ClearApptsButton);
+            this.Controls.Add(this.CustSearchButton);
+            this.Controls.Add(this.ApptSearchButton);
+            this.Controls.Add(this.CustSearchBox);
+            this.Controls.Add(this.ApptSearchBox);
             this.Controls.Add(this.DayRadio);
             this.Controls.Add(this.RepActiveUserButton);
             this.Controls.Add(this.SchedByConsReportButton);
@@ -337,5 +404,11 @@
         private System.Windows.Forms.Button SchedByConsReportButton;
         private System.Windows.Forms.Button RepActiveUserButton;
         private System.Windows.Forms.RadioButton DayRadio;
+        private System.Windows.Forms.TextBox ApptSearchBox;
+        private System.Windows.Forms.TextBox CustSearchBox;
+        private System.Windows.Forms.Button ApptSearchButton;
+        private System.Windows.Forms.Button CustSearchButton;
+        private System.Windows.Forms.Button ClearApptsButton;
+        private System.Windows.Forms.Button ClearCustButton;
     }
 }
