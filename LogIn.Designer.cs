@@ -37,12 +37,13 @@
             this.LogInButton = new System.Windows.Forms.Button();
             this.LogInExitButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LogInUsernameLabel
             // 
             this.LogInUsernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.LogInUsernameLabel.Location = new System.Drawing.Point(37, 136);
+            this.LogInUsernameLabel.Location = new System.Drawing.Point(37, 179);
             this.LogInUsernameLabel.Name = "LogInUsernameLabel";
             this.LogInUsernameLabel.Size = new System.Drawing.Size(191, 25);
             this.LogInUsernameLabel.TabIndex = 1;
@@ -52,7 +53,7 @@
             // LogInPasswordLabel
             // 
             this.LogInPasswordLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.LogInPasswordLabel.Location = new System.Drawing.Point(46, 179);
+            this.LogInPasswordLabel.Location = new System.Drawing.Point(46, 223);
             this.LogInPasswordLabel.Name = "LogInPasswordLabel";
             this.LogInPasswordLabel.Size = new System.Drawing.Size(182, 25);
             this.LogInPasswordLabel.TabIndex = 2;
@@ -62,7 +63,7 @@
             // LogInUsernameTextBox
             // 
             this.LogInUsernameTextBox.AcceptsTab = true;
-            this.LogInUsernameTextBox.Location = new System.Drawing.Point(234, 139);
+            this.LogInUsernameTextBox.Location = new System.Drawing.Point(234, 183);
             this.LogInUsernameTextBox.Name = "LogInUsernameTextBox";
             this.LogInUsernameTextBox.Size = new System.Drawing.Size(262, 22);
             this.LogInUsernameTextBox.TabIndex = 3;
@@ -70,7 +71,7 @@
             // LogInPasswordTextBox
             // 
             this.LogInPasswordTextBox.AcceptsTab = true;
-            this.LogInPasswordTextBox.Location = new System.Drawing.Point(234, 182);
+            this.LogInPasswordTextBox.Location = new System.Drawing.Point(234, 227);
             this.LogInPasswordTextBox.Name = "LogInPasswordTextBox";
             this.LogInPasswordTextBox.PasswordChar = '*';
             this.LogInPasswordTextBox.Size = new System.Drawing.Size(262, 22);
@@ -80,7 +81,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label1.Location = new System.Drawing.Point(206, 81);
+            this.label1.Location = new System.Drawing.Point(205, 131);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(219, 25);
             this.label1.TabIndex = 5;
@@ -89,7 +90,7 @@
             // LogInButton
             // 
             this.LogInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.LogInButton.Location = new System.Drawing.Point(234, 229);
+            this.LogInButton.Location = new System.Drawing.Point(234, 274);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new System.Drawing.Size(171, 33);
             this.LogInButton.TabIndex = 6;
@@ -100,7 +101,7 @@
             // LogInExitButton
             // 
             this.LogInExitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.LogInExitButton.Location = new System.Drawing.Point(411, 229);
+            this.LogInExitButton.Location = new System.Drawing.Point(407, 274);
             this.LogInExitButton.Name = "LogInExitButton";
             this.LogInExitButton.Size = new System.Drawing.Size(89, 33);
             this.LogInExitButton.TabIndex = 7;
@@ -114,12 +115,25 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe Print", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.Location = new System.Drawing.Point(112, 51);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(411, 61);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Top Sales Training Co.";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
             this.ClientSize = new System.Drawing.Size(632, 389);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.LogInExitButton);
             this.Controls.Add(this.LogInButton);
             this.Controls.Add(this.label1);
@@ -145,6 +159,7 @@
         private System.Windows.Forms.Button LogInButton;
         private System.Windows.Forms.Button LogInExitButton;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

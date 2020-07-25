@@ -51,8 +51,7 @@ namespace SchedulingApplication
         {
             string userslct = UserCB.GetItemText(UserCB.SelectedItem);
 
-            string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cmn = new MySqlConnection(mconnStrg))
+            using (MySqlConnection cmn = new MySqlConnection(Globals.connStr))
             {
                 cmn.Open();
                 MySqlCommand mmmd = new MySqlCommand("SELECT userId from user where userName = '" + userslct + "';", cmn);
@@ -67,20 +66,11 @@ namespace SchedulingApplication
 
                 }
                 cmn.Close();
-
-                UserConf obj = (user) =>
-                {
-                    return "Hello " + user + "!";
-                };
-                string GreetingsMessage = obj.Invoke(user);
-                Console.WriteLine(GreetingsMessage);
-                //Lambda to shorten syntax
             }
 
             //Fill Appt Table with Selected User Appts
             DataTable at = new DataTable();
-            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cn = new MySqlConnection(connStr))
+            using (MySqlConnection cn = new MySqlConnection(Globals.connStr))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("SELECT appointmentId, customerId, type, start, end FROM appointment where userId = '" + Globals.SelUser + "'", cn);
@@ -104,8 +94,7 @@ namespace SchedulingApplication
         {
             //Fill user combo box
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection con = new MySqlConnection(connStrg))
+            using (MySqlConnection con = new MySqlConnection(Globals.connStr))
             {
                 con.Open();
                 MySqlCommand cmmd = new MySqlCommand("select * from user", con);

@@ -30,7 +30,6 @@
         {
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.DBEAddCustButton = new System.Windows.Forms.Button();
-            this.ApptTypesByMonthButton = new System.Windows.Forms.Button();
             this.DBExitButton = new System.Windows.Forms.Button();
             this.DashboardApptDGV = new System.Windows.Forms.DataGridView();
             this.DashMonthRadioButton = new System.Windows.Forms.RadioButton();
@@ -53,6 +52,7 @@
             this.CustSearchButton = new System.Windows.Forms.Button();
             this.ClearApptsButton = new System.Windows.Forms.Button();
             this.ClearCustButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DashboardApptDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DashboardCustDGV)).BeginInit();
             this.SuspendLayout();
@@ -82,18 +82,6 @@
             this.DBEAddCustButton.Text = "Add";
             this.DBEAddCustButton.UseVisualStyleBackColor = true;
             this.DBEAddCustButton.Click += new System.EventHandler(this.DBEAddCustButton_Click);
-            // 
-            // ApptTypesByMonthButton
-            // 
-            this.ApptTypesByMonthButton.FlatAppearance.BorderSize = 2;
-            this.ApptTypesByMonthButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ApptTypesByMonthButton.Location = new System.Drawing.Point(87, 432);
-            this.ApptTypesByMonthButton.Name = "ApptTypesByMonthButton";
-            this.ApptTypesByMonthButton.Size = new System.Drawing.Size(230, 56);
-            this.ApptTypesByMonthButton.TabIndex = 3;
-            this.ApptTypesByMonthButton.Text = "Appointment Types By Month";
-            this.ApptTypesByMonthButton.UseVisualStyleBackColor = true;
-            this.ApptTypesByMonthButton.Click += new System.EventHandler(this.DBViewReportsButton_Click);
             // 
             // DBExitButton
             // 
@@ -256,7 +244,7 @@
             // 
             this.SchedByConsReportButton.FlatAppearance.BorderSize = 2;
             this.SchedByConsReportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SchedByConsReportButton.Location = new System.Drawing.Point(87, 494);
+            this.SchedByConsReportButton.Location = new System.Drawing.Point(87, 423);
             this.SchedByConsReportButton.Name = "SchedByConsReportButton";
             this.SchedByConsReportButton.Size = new System.Drawing.Size(230, 56);
             this.SchedByConsReportButton.TabIndex = 17;
@@ -268,7 +256,7 @@
             // 
             this.RepActiveUserButton.FlatAppearance.BorderSize = 2;
             this.RepActiveUserButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RepActiveUserButton.Location = new System.Drawing.Point(87, 556);
+            this.RepActiveUserButton.Location = new System.Drawing.Point(87, 494);
             this.RepActiveUserButton.Name = "RepActiveUserButton";
             this.RepActiveUserButton.Size = new System.Drawing.Size(230, 56);
             this.RepActiveUserButton.TabIndex = 18;
@@ -342,12 +330,24 @@
             this.ClearCustButton.UseVisualStyleBackColor = true;
             this.ClearCustButton.Click += new System.EventHandler(this.ClearCustButton_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe Print", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label2.Location = new System.Drawing.Point(26, 603);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(339, 50);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "Top Sales Training Co.";
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Coral;
             this.ClientSize = new System.Drawing.Size(1066, 675);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.ClearCustButton);
             this.Controls.Add(this.ClearApptsButton);
             this.Controls.Add(this.CustSearchButton);
@@ -370,7 +370,6 @@
             this.Controls.Add(this.DashMonthRadioButton);
             this.Controls.Add(this.DashboardApptDGV);
             this.Controls.Add(this.DBExitButton);
-            this.Controls.Add(this.ApptTypesByMonthButton);
             this.Controls.Add(this.DBEAddCustButton);
             this.Controls.Add(this.monthCalendar1);
             this.Name = "Dashboard";
@@ -387,7 +386,6 @@
 
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.Button DBEAddCustButton;
-        private System.Windows.Forms.Button ApptTypesByMonthButton;
         private System.Windows.Forms.Button DBExitButton;
         private System.Windows.Forms.DataGridView DashboardApptDGV;
         private System.Windows.Forms.RadioButton DashMonthRadioButton;
@@ -410,5 +408,6 @@
         private System.Windows.Forms.Button CustSearchButton;
         private System.Windows.Forms.Button ClearApptsButton;
         private System.Windows.Forms.Button ClearCustButton;
+        private System.Windows.Forms.Label label2;
     }
 }

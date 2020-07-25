@@ -20,8 +20,7 @@ namespace SchedulingApplication
 
             //Fill city combo box
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection con = new MySqlConnection(connStrg))
+            using (MySqlConnection con = new MySqlConnection(Globals.connStr))
             {
                 con.Open();
                 MySqlCommand cmmd = new MySqlCommand("select * from city", con);
@@ -37,12 +36,10 @@ namespace SchedulingApplication
 
             }
 
-            /////////PREFILL FORM/////////////////
-            
+      
             //Get customerName
             DataTable dt = new DataTable();
-            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cn = new MySqlConnection(connStr))
+            using (MySqlConnection cn = new MySqlConnection(Globals.connStr))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select * from customer", cn);
@@ -55,8 +52,7 @@ namespace SchedulingApplication
             }
             //Get address/zip/phone
             DataTable da = new DataTable();
-            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cn = new MySqlConnection(connSt))
+            using (MySqlConnection cn = new MySqlConnection(Globals.connStr))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select * from address", cn);
@@ -75,8 +71,7 @@ namespace SchedulingApplication
             }
             //Get city
             DataTable dc = new DataTable();
-            string connS = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cn = new MySqlConnection(connS))
+            using (MySqlConnection cn = new MySqlConnection(Globals.connStr))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select * from city", cn);
@@ -87,12 +82,10 @@ namespace SchedulingApplication
                 CityComboBox.Text = city;
                 cn.Close();
             }
-            /////////END PREFILL///////// 
-
+         
             ///Get City ID
             DataTable ic = new DataTable();
-            string i = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection icn = new MySqlConnection(i))
+            using (MySqlConnection icn = new MySqlConnection(Globals.connStr))
             {
                 icn.Open();
                 MySqlCommand icmd = new MySqlCommand("select cityId from city where city = '"+ CityComboBox.Text +"';", icn);
@@ -117,8 +110,7 @@ namespace SchedulingApplication
         {
             string ctyslct = CityComboBox.GetItemText(CityComboBox.SelectedItem);
 
-            string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cmn = new MySqlConnection(mconnStrg))
+            using (MySqlConnection cmn = new MySqlConnection(Globals.connStr))
             {
                 cmn.Open();
                 MySqlCommand mmmd = new MySqlCommand("SELECT cityId from city where city = '" + ctyslct + "';", cmn);
@@ -144,24 +136,7 @@ namespace SchedulingApplication
 
         private void CityComboBox_MouseClick(object sender, MouseEventArgs e)
         {
-            ////Fill city combo box
-            //DataTable ct = new DataTable();
-            //string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            //using (MySqlConnection con = new MySqlConnection(connStrg))
-            //{
-            //    con.Open();
-            //    MySqlCommand cmmd = new MySqlCommand("select * from city", con);
-            //    MySqlDataReader creader = cmmd.ExecuteReader();
-            //    ct.Load(creader);
-
-            //    if (ct.Rows.Count > 0)
-            //    {
-            //        CityComboBox.DataSource = ct;
-            //        CityComboBox.DisplayMember = "customerName";
-            //    }
-            //    con.Close();
-
-            //}
+            ////
         }
 
         private void MCUpdateButton_Click(object sender, EventArgs e)
@@ -191,19 +166,16 @@ namespace SchedulingApplication
             try
             {
                 //UPDATE ADDRESS/CITY/COUNTRY
-                string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                 string Query = "Update address set address ='" + MCAddressTextbox.Text + "', cityId = '" + Globals.CtyID + "', postalCode = '" + MCZipTextbox.Text + "', phone = '" + MCPhoneButton.Text + "', lastUpdate ='" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' Where addressId = '" + Globals.AddID + "';";
-                MySqlConnection con2 = new MySqlConnection(con);
+                MySqlConnection con2 = new MySqlConnection(Globals.connStr);
                 MySqlCommand comm = new MySqlCommand(Query, con2);
                 con2.Open();
                 comm.ExecuteNonQuery();
                 con2.Close();
 
                 //UPDATECUSTOMER
-                string conx = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                 string Queryx = "Update customer SET customerName = '" + MCNameTextbox.Text + "', lastUpdate ='" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', lastUpdateBy= '" + Globals.CurrUserName + "' WHERE customerId = '" + Globals.CustID + "';";
-                //connection object and string  
-                MySqlConnection con2x = new MySqlConnection(conx);
+                MySqlConnection con2x = new MySqlConnection(Globals.connStr);
                 MySqlCommand commx = new MySqlCommand(Queryx, con2x);
                 con2x.Open();
                 commx.ExecuteNonQuery();

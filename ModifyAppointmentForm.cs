@@ -18,13 +18,12 @@ namespace SchedulingApplication
             InitializeComponent();
 
             //Fill appt type combo box
-            MATypeCombobox.Items.Add("Scrum");
-            MATypeCombobox.Items.Add("Presentation");
+            MATypeCombobox.Items.Add("Phone");
+            MATypeCombobox.Items.Add("Online");
 
             //Populate fields
             DataTable dt = new DataTable();
-            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cn = new MySqlConnection(connStr))
+            using (MySqlConnection cn = new MySqlConnection(Globals.connStr))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cn);
@@ -88,8 +87,7 @@ namespace SchedulingApplication
             AEnd = TimeZoneInfo.ConvertTimeToUtc(MAEndTimePicker.Value);
 
             DataTable dt = new DataTable();
-            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cn = new MySqlConnection(connStr))
+            using (MySqlConnection cn = new MySqlConnection(Globals.connStr))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cn);
@@ -115,10 +113,8 @@ namespace SchedulingApplication
                 try
                 {
                     string type = MATypeCombobox.GetItemText(MATypeCombobox.SelectedItem);
-                    //connection string 
-                    string Connection = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-                    MySqlConnection Conn = new MySqlConnection(Connection);
-                    //query
+                    
+                    MySqlConnection Conn = new MySqlConnection(Globals.connStr);
                     string Query = "Update appointment Set type = '" + type + "', start = '" + TimeZoneInfo.ConvertTimeToUtc(MAStartTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', end = '" + TimeZoneInfo.ConvertTimeToUtc(MAEndTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', lastUpdate = '" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', lastUpdateBy = '" + Globals.CurrUserName + "' WHERE appointmentId = '" + Globals.ApptId + "';";
                     MySqlCommand comm = new MySqlCommand(Query, Conn);
                     Conn.Open();
@@ -143,5 +139,9 @@ namespace SchedulingApplication
             Globals.ApptTypeCombo = MATypeCombobox.Text;
         }
 
+        private void MATypeCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

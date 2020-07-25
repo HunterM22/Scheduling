@@ -17,8 +17,8 @@ namespace SchedulingApplication
         public AddAppointmentForm()
         {
             InitializeComponent();
-            AATypeCombobox.Items.Add("Scrum");
-            AATypeCombobox.Items.Add("Presentation");
+            AATypeCombobox.Items.Add("Phone");
+            AATypeCombobox.Items.Add("Online");
 
         }
         
@@ -66,8 +66,7 @@ namespace SchedulingApplication
             AEnd = TimeZoneInfo.ConvertTimeToUtc(AAEndTimePicker.Value);
 
             DataTable dt = new DataTable();
-            string connStr = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cn = new MySqlConnection(connStr))
+            using (MySqlConnection cn = new MySqlConnection(Globals.connStr))
             {
                 cn.Open();
                 MySqlCommand cmd = new MySqlCommand("select appointmentId, customerId, type, start, end from appointment", cn);
@@ -92,15 +91,10 @@ namespace SchedulingApplication
 
                 try
                 {
-                    //con string
-                    string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-
                     //insert qry 
                     string Query = "insert into appointment(customerId,userId,type,start,end,createDate,createdBy)     " +
-                        "values('" + Globals.CustComboID + "','" + Globals.UserID + "','" + Globals.ApptTypeCombo + "','" + TimeZoneInfo.ConvertTimeToUtc(AAStartTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "','" + TimeZoneInfo.ConvertTimeToUtc(AAEndTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Globals.CurrUserName + "');";
-                    //connection object and string                                                                                                                                        
-                    MySqlConnection con2 = new MySqlConnection(con);
-                    //command -handle the query and connection object.  
+                        "values('" + Globals.CustComboID + "','" + Globals.UserID + "','" + Globals.ApptTypeCombo + "','" + TimeZoneInfo.ConvertTimeToUtc(AAStartTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "','" + TimeZoneInfo.ConvertTimeToUtc(AAEndTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Globals.CurrUserName + "');";                                                                                                                             
+                    MySqlConnection con2 = new MySqlConnection(Globals.connStr);
                     MySqlCommand comm = new MySqlCommand(Query, con2);
                     MySqlDataReader rdr;
                     con2.Open();
@@ -136,8 +130,7 @@ namespace SchedulingApplication
         {
             //Fill customer combo box
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection con = new MySqlConnection(connStrg))
+            using (MySqlConnection con = new MySqlConnection(Globals.connStr))
             {
                 con.Open();
                 MySqlCommand cmmd = new MySqlCommand("select * from customer", con);
@@ -180,8 +173,7 @@ namespace SchedulingApplication
             
             string cmbslct = AACustomerComboBox.GetItemText(AACustomerComboBox.SelectedItem);
 
-            string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cmn = new MySqlConnection(mconnStrg))
+            using (MySqlConnection cmn = new MySqlConnection(Globals.connStr))
             {
                 cmn.Open();
                 MySqlCommand mmmd = new MySqlCommand("SELECT customerId from customer where customerName = '"+ cmbslct +"';", cmn);

@@ -101,6 +101,7 @@
             this.MATypeCombobox.Name = "MATypeCombobox";
             this.MATypeCombobox.Size = new System.Drawing.Size(244, 24);
             this.MATypeCombobox.TabIndex = 32;
+            this.MATypeCombobox.SelectedIndexChanged += new System.EventHandler(this.MATypeCombobox_SelectedIndexChanged);
             this.MATypeCombobox.Click += new System.EventHandler(this.MATypeCombobox_Click);
             // 
             // MAApptTypeLabel

@@ -46,8 +46,7 @@ namespace SchedulingApplication
         {
             CultureInfo mx = CultureInfo.CurrentCulture;
 
-            MySqlConnection mcon = new MySqlConnection(@"Host = 3.227.166.251; Port = 3306; Database = U06oGK; userid = U06oGK;
-            password = 53688825246; SslMode = None; Convert Zero Datetime = True");
+            MySqlConnection mcon = new MySqlConnection(Globals.connStr);
             MySqlDataAdapter adapter;
             DataTable table = new DataTable();
 
@@ -66,14 +65,6 @@ namespace SchedulingApplication
             }
             else
             {
-                GreetingsDelegate obj = (name) =>
-                {
-                    return "Hello " + name + "!";
-                };
-                string GreetingsMessage = obj.Invoke("Test");
-                Console.WriteLine(GreetingsMessage);
-                //Lambda to shorten syntax
-
                 this.Hide();
                 Dashboard showDB = new Dashboard();
                 showDB.ShowDialog();
@@ -104,8 +95,7 @@ namespace SchedulingApplication
             DateTime Now = Convert.ToDateTime(DateTime.UtcNow);
             DateTime NowF = Convert.ToDateTime(DateTime.UtcNow).AddMinutes(15);
             DataTable dp = new DataTable();
-            string connSt = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection can = new MySqlConnection(connSt))
+            using (MySqlConnection can = new MySqlConnection(Globals.connStr))
             {
                 can.Open();
                 MySqlCommand acmd = new MySqlCommand("Select * from appointment where userId = '" + Globals.UserID + "' AND start between '" + Now.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + NowF.ToString("yyyy-MM-dd HH:mm:ss") + "'", can);
@@ -132,5 +122,9 @@ namespace SchedulingApplication
             
         }
 
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

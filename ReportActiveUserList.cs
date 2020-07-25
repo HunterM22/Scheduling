@@ -18,10 +18,9 @@ namespace SchedulingApplication
             InitializeComponent();
             dgvFormatter(dataGridView1);
 
-            //Fill Customer Table
+            //Fill Table
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection con = new MySqlConnection(connStrg))
+            using (MySqlConnection con = new MySqlConnection(Globals.connStr))
             {
                 con.Open();
                 MySqlCommand cmmd = new MySqlCommand("select userId, userName, createDate, createdBy, lastUpdate, lastUpdateBy from user where active =1;", con);

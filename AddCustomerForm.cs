@@ -21,8 +21,7 @@ namespace SchedulingApplication
 
             //Fill city combo box
             DataTable ct = new DataTable();
-            string connStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection con = new MySqlConnection(connStrg))
+            using (MySqlConnection con = new MySqlConnection(Globals.connStr))
             {
                 con.Open();
                 MySqlCommand cmmd = new MySqlCommand("select * from city", con);
@@ -74,8 +73,7 @@ namespace SchedulingApplication
                     //Get City ID
                     string ctd = CityCombobox.GetItemText(CityCombobox.SelectedItem);
 
-                    string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-                    using (MySqlConnection comn = new MySqlConnection(mconnStrg))
+                    using (MySqlConnection comn = new MySqlConnection(Globals.connStr))
                     {
                         comn.Open();
                         MySqlCommand mmd = new MySqlCommand("SELECT cityId from city where city = '" + ctd + "';", comn);
@@ -94,10 +92,9 @@ namespace SchedulingApplication
                     }
 
                     //insert ADDRESS/CITY/COUNTRY
-                    string con = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                     string Query = "Insert into address(address,cityId,postalCode,phone,createDate,createdBy) " +
                         "Values('" + ACAddressTextbox.Text + "','" + Globals.CtyID + "','" + ACZipTextbox.Text + "','" + ACPhoneTextBox.Text + "','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Globals.CurrUserName + "');";
-                    MySqlConnection con2 = new MySqlConnection(con);
+                    MySqlConnection con2 = new MySqlConnection(Globals.connStr);
                     MySqlCommand comm = new MySqlCommand(Query, con2);
                     MySqlDataReader rdr;
                     con2.Open();
@@ -105,8 +102,7 @@ namespace SchedulingApplication
                     con2.Close();
 
                     //get ADDRESS ID
-                    string mconStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-                    MySqlConnection cmn = new MySqlConnection(mconStrg);
+                    MySqlConnection cmn = new MySqlConnection(Globals.connStr);
                     MySqlCommand mmmd = new MySqlCommand("SELECT addressId from address where phone = '" + ACPhoneTextBox.Text + "';", cmn);
                     MySqlDataAdapter mapt = new MySqlDataAdapter(mmmd);
                     cmn.Open();
@@ -123,13 +119,9 @@ namespace SchedulingApplication
 
 
                     //insert into CUSTOMER
-                    //con string
-                    string conx = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
                     string Queryx = "Insert into customer(customerName,addressId,active,createDate,createdBy)" +
                         "Values('" + ACNameTextbox.Text + "','" + Globals.AddID + "','1','" + TimeZoneInfo.ConvertTimeToUtc(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Globals.CurrUserName + "');";
-                    //connection object and string  
-                    MySqlConnection con2x = new MySqlConnection(conx);
-                    //command -handle the query and connection object.  
+                    MySqlConnection con2x = new MySqlConnection(Globals.connStr);
                     MySqlCommand commx = new MySqlCommand(Queryx, con2x);
                     MySqlDataReader rdrx;
                     con2x.Open();
@@ -167,8 +159,7 @@ namespace SchedulingApplication
         {
             string ctyslct = CityCombobox.GetItemText(CityCombobox.SelectedItem);
 
-            string mconnStrg = @"Host=3.227.166.251;Port=3306;Database=U06oGK;userid=U06oGK;password=53688825246;SslMode=None;Convert Zero Datetime=true";
-            using (MySqlConnection cmn = new MySqlConnection(mconnStrg))
+            using (MySqlConnection cmn = new MySqlConnection(Globals.connStr))
             {
                 cmn.Open();
                 MySqlCommand mmmd = new MySqlCommand("SELECT cityId from city where city = '" + ctyslct + "';", cmn);
@@ -180,7 +171,6 @@ namespace SchedulingApplication
                 {
                     int idc = (int)mdm.Rows[0][0];
                     Globals.CtyID = idc;
-
                 }
                 cmn.Close();
 
